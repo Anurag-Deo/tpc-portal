@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Lottie from "@/components/lottie";
 
 const signup = () => {
   const [name, setName] = useState("");
   const [roll, setRoll] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   return (
     <>
@@ -17,7 +18,15 @@ const signup = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex">
+        <section className="bg-gray-50 dark:bg-gray-900 w-[50%] flex align-middle justify-center items-center">
+          <Lottie
+            animationPath={
+              "https://assets7.lottiefiles.com/packages/lf20_t1pL2Z4MIA.json"
+            }
+          ></Lottie>
+        </section>
+      <section className="bg-gray-50 dark:bg-gray-900 w-[50%]">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
@@ -149,6 +158,7 @@ const signup = () => {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 };

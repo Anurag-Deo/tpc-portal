@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Lottie from "@/components/lottie";
+
 
 const signin = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +16,15 @@ const signin = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex">
+        <section className="bg-gray-50 dark:bg-gray-900 w-[50%] flex align-middle justify-center items-center">
+          <Lottie
+            animationPath={
+              "https://assets7.lottiefiles.com/packages/lf20_t1pL2Z4MIA.json"
+            }
+          ></Lottie>
+        </section>
+      <section className="bg-gray-50 dark:bg-gray-900 w-[50%]">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
@@ -67,7 +77,7 @@ const signin = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                
+
                 {/* <div className="flex items-start">
                         <div className="flex items-center h-5">
                           <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-purple-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-purple-600 dark:ring-offset-gray-800" required={true} />
@@ -85,7 +95,7 @@ const signin = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don't have an account?{" "}
                   <Link
-                    href="/student/signup"
+                    href="/alumini/signup"
                     className="font-medium text-purple-600 hover:underline dark:text-purple-500"
                   >
                     Create here
@@ -96,6 +106,7 @@ const signin = () => {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 };
