@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import ContactCard from '@/components/contactCard/contactCard'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +16,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-     
+      <h1 className="text-6xl font-bold text-center my-7">Training and Placement Cell</h1>
+      <h2 className="text-5xl font-semibold text-center my-7">IIT Patna</h2>
+      <p className="text-xl lg:px-[15%] md:px-32 px-12 leading-10">
+      Training and placement cell (TPC) of the institute handles all aspects of placements at IIT Patna for the graduating students of all departments. Right from contacting companies to managing all logistics of arranging for tests, pre placement talks and conducting final interviews the Training and Placement Cell officials and volunteers provide their best possible assistance to the recruiters.
+      </p>
+      <h2 className="text-5xl font-semibold text-center my-7">Contact Us</h2>
+      <div className="flex flex-col lg:flex-row justify-center items-center my-10 lg:space-x-10 space-y-10 lg:space-y-0">
+        <ContactCard name="Dr. Jose V Parambil" designation="Professor In Charge" email="pic_tnp@iitp.ac.in" phone="+9116115233761" />
+        <ContactCard name="Dr. Ajay Kumar Kalyani" designation="Team TPC" email="ajaykumar@iitp.ac.in" phone="+9116115233761" />
+        <ContactCard name="Dr. Mayank Agarwal" designation="Team TPC" email="mayank@iitp.ac.in" phone="+9116115233761" />
+      </div>
       </main>
     </>
   )
