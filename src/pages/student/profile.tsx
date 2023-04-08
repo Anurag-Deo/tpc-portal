@@ -1,10 +1,13 @@
 import React from 'react'
-
+import Navbar from '@/components/studentNavbar'
 const profile = () => {
   return (
+    <>
+    <Navbar/>
     <div>
-      This is profile page
+      This page shows the query results
     </div>
+    </>
   )
 }
 
