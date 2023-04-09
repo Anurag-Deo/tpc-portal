@@ -8,6 +8,31 @@ const signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/student/login", {
+      method: "POST",
+      body: JSON.stringify({
+        "email": email,
+        "password": password
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    // console.log(data);
+    if (data.error) {
+      setError(data.error);
+    } else {
+      // console.log(data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("profile", data.data);
+      // console.log(localStorage.getItem("token"));
+      // console.log(localStorage.getItem("profile"));
+      window.location.href = "/student/main";
+    }
+  }
   return (
     <>
     <Navbar/>
@@ -89,6 +114,7 @@ const signin = () => {
                     </div> */}
                   <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="w-full text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
                   >
                     Log In
