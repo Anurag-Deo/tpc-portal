@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Head from "next/head";
+import {useRouter} from "next/router";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
 import Navbar from "@/components/navbar";
 
 const signin = () => {
+  const router = useRouter()
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/student/main");
+    } 
+  }, [])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +37,8 @@ const signin = () => {
       localStorage.setItem("profile", data.data);
       // console.log(localStorage.getItem("token"));
       // console.log(localStorage.getItem("profile"));
-      window.location.href = "/student/main";
+      router.push("/student/main");
+      // window.location.href = "/student/main";
     }
   }
   return (

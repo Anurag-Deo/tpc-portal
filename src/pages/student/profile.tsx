@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import Navbar from '@/components/studentNavbar'
 import Link from "next/link";
 import Lottie from "@/components/lottie";
+import OfferCard from '@/components/offersCard/offersCard';
 const profile = () => {
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
@@ -18,7 +19,7 @@ const profile = () => {
         <section className="bg-gray-50 dark:bg-gray-900 lg:w-[50%] md:w-[50%] w-[80%] flex align-middle justify-center items-center">
           <Lottie
             animationPath={
-              "https://assets8.lottiefiles.com/packages/lf20_mrjjdbp9.json"
+              "https://assets3.lottiefiles.com/packages/lf20_lyp6fz8l.json"
             }
           ></Lottie>
         </section>
@@ -203,6 +204,11 @@ const profile = () => {
             </div>
           </div>
         </section>
+      </div>
+      <h3 className="text-4xl font-semibold text-center">Applied Jobs</h3>
+      <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
+        <OfferCard name={"Google"} location={"Banglore"} role={"SDE"} skills={"Problem Solving"} amount={"15-25"} hide={true}/>
+        <OfferCard name={"Apple"} location={"Banglore"} role={"SDE"} skills={"Problem Solving"} amount={"15-25"} hide={true}/>
       </div>
     </>
   )

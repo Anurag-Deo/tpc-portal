@@ -1,7 +1,15 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import OfferCard from '@/components/offersCard/offersCard'
 import Navbar from '@/components/studentNavbar'
+import { useRouter } from 'next/router'
 const main = () => {
+  const router = useRouter()
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/student/signin");
+    } 
+  }, [])
+  
   return (
     <>
     <Navbar/>

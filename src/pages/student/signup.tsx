@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import {useRouter} from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
 import Navbar from "@/components/navbar";
 const signup = () => {
+  const router = useRouter()
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [roll, setRoll] = useState("");
@@ -57,12 +59,7 @@ const signup = () => {
     if (data.error) {
       setError(data.error);
     } else {
-      // console.log(data);
-      localStorage.setItem("token", data.authtoken);
-      localStorage.setItem("profile", data.data);
-      // console.log(localStorage.getItem("token"));
-      // console.log(localStorage.getItem("profile"));
-      window.location.href = "/student/signin";
+      router.push("/student/signin");
     }
   }
   return (
