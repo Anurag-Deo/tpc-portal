@@ -37,7 +37,7 @@ const stats = () => {
 
   const columns = [
     { label: "Name", accessor: "full_name", sortable: true },
-    { label: "email", accessor: "email", sortable: true },
+    { label: "email", accessor: "degignation", sortable: true },
     { label: "Mobile No.", accessor: "company", sortable: true },
     { label: "CPI", accessor: "age", sortable: true },
     { label: "Branch", accessor: "branch", sortable: true },

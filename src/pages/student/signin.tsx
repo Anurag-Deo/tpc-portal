@@ -32,11 +32,11 @@ const signin = () => {
     if (data.error) {
       setError(data.error);
     } else {
-      // console.log(data);
+      // console.log(data.data);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("profile", data.data);
+      localStorage.setItem("profile", JSON.stringify(data.data));
       // console.log(localStorage.getItem("token"));
-      // console.log(localStorage.getItem("profile"));
+      // console.log(JSON.parse(localStorage.getItem("profile")));
       router.push("/student/main");
       // window.location.href = "/student/main";
     }
