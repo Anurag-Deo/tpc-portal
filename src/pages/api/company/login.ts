@@ -34,9 +34,6 @@ export default async function handler(
           var data = {
             id: col.id,
             name: col.name,
-            roles_offered: col.roles_offered,
-            eligibility: col.eligibility,
-            CTC: col.CTC,
             Hr_contacts: col.Hr_contacts,
           };
           const token = jwt.sign({

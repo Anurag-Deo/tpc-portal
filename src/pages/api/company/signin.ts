@@ -9,9 +9,6 @@ const SECRET_KEY = process.env.SECRET_KEY || 'secret' ;
   * Request body:
   * {
   * "name": "googol",
-  * "roles_offered": "Software Engineer",
-  * "eligibility": "Bachelors",
-  * "CTC": 1000000,
   * "Hr_contacts": "John Cena",
   * "password": "123456789",
   * "confirmPassword": "123456789"
@@ -54,9 +51,6 @@ export default async function handler(
         var data = {
           id: generateUID(),
           name: req.body.name,
-          roles_offered: req.body.roles_offered,
-          eligibility: req.body.eligibility,
-          CTC: req.body.CTC,
           Hr_contacts: req.body.Hr_contacts,
           password: secPass
         };
