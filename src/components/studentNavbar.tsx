@@ -10,7 +10,7 @@ const StudentNavbar = () => {
 
 <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="#" className="flex items-center">
+    <a href="/" className="flex items-center">
         <img src="https://www.iitp.ac.in/placement/images/iitp2.png" className="h-8 mr-3" alt="Flowbite Logo" />
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">TPC IIT Patna</span>
     </a>
@@ -31,7 +31,7 @@ const StudentNavbar = () => {
           <Link href="/student/profile" className={`"block py-2 pl-3 pr-4  ${router.pathname.split("/")[2] == "profile" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`}>Profile</Link>
         </li>
         <li>
-          <Link href="/logout" className={`"block py-2 pl-3 pr-4  ${router.pathname == "/contactus" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`}>Logout</Link>
+          <span style={{cursor: 'pointer'}} onClick={()=>{localStorage.clear();router.push('/student/signin')}} className={`"block py-2 pl-3 pr-4  ${router.pathname == "/contactus" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`}>Logout</span>
         </li>
       </ul>
     </div>
