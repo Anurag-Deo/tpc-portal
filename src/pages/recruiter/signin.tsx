@@ -37,7 +37,7 @@ const signin = () => {
     } else {
       localStorage.setItem("token", data.token);
       localStorage.setItem("profile", JSON.stringify(data.data));
-      router.push("/alumni/main");
+      router.push("/recruiter/main");
     }
   }
   return (

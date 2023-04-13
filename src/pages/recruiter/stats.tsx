@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/studentNavbar";
+import Navbar from "@/components/recruiterNavbar";
 
 import Table from "../../components/table/Table";
 import tableData1 from "../../components/table/tableData1.json";
