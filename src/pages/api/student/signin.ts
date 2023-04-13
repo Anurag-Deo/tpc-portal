@@ -33,13 +33,12 @@ export default async function handler(
   try {
     const connection = connectToSql();
     // check if record exists already
-    connection.query('SELECT * FROM students WHERE rollno = ?', [req.body.rollno], async function (error: Object, results: any, _fields: any) {
+    connection.query('SELECT * FROM students WHERE rollno = ? or email = ?', [req.body.rollno, req.body.email], async function (error: Object, results: any, _fields: any) {
       if (error) {
         res.json({'error': error})
       }
-
       if(results.length > 0){
-        res.json({'error': 'Student already exists'})
+        res.json({'error': 'Student with same roll number/email already exists'})
       } else {
         // insert into db
         const salt = await bcrypt.genSalt(10);
@@ -66,7 +65,7 @@ export default async function handler(
             email: data.email
           }, SECRET_KEY, {});
 
-          res.json({data, authtoken})
+          res.json({data: {...data, type: 'student'}, authtoken})
        });
       }
     disconnect(connection);

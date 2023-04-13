@@ -66,7 +66,7 @@ export default async function handler(
             {}
           );
 
-          res.json({data, authtoken})
+          res.json({data:{...data, type: 'company'}, authtoken})
        });
       }
     disconnect(connection);

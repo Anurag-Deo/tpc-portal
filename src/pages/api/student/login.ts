@@ -42,7 +42,8 @@ export default async function handler(
             roles: col.roles,
             gender: col.gender,
             cv: col.cv,
-            image: col.image
+            image: col.image,
+            type: 'student'
           }
           const token = jwt.sign({
             username: data.first_name,

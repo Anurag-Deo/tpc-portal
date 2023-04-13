@@ -35,6 +35,7 @@ export default async function handler(
             id: col.id,
             name: col.name,
             Hr_contacts: col.Hr_contacts,
+            type: "company",
           };
           const token = jwt.sign({
               username: data.name,

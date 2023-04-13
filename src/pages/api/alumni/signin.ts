@@ -57,7 +57,7 @@ export default async function handler(
             email: data.email
           }, SECRET_KEY, {});
 
-          res.json({data, authtoken})
+          res.json({data: {...data, type: 'alumni'}, authtoken})
        });
       }
     disconnect(connection);

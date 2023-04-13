@@ -38,6 +38,7 @@ export default async function handler(
             email: col.email,
             ctc: col.ctc,
             role_applied: col.role_applied,
+            type: 'alumni'
           };
           const token = jwt.sign({
             username: data.name,
