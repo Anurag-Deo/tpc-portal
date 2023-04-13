@@ -68,15 +68,15 @@ const signup = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex">
-        <section className="bg-gray-50 dark:bg-gray-900 w-[50%] flex align-middle justify-center items-center">
+      <div className="flex md:flex-row flex-col">
+        <section className="bg-gray-50 dark:bg-gray-900 md:w-[50%] w-full flex align-middle justify-center items-center">
           <Lottie
             animationPath={
               "https://assets7.lottiefiles.com/packages/lf20_t1pL2Z4MIA.json"
             }
           ></Lottie>
         </section>
-        <section className="bg-gray-50 dark:bg-gray-900 w-[50%]">
+        <section className="bg-gray-50 dark:bg-gray-900 md:w-[50%] w-full">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a
               href="#"
