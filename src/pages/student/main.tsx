@@ -26,7 +26,7 @@ const main = () => {
       <h3 className="text-4xl font-semibold text-center my-7">Here are some placement offers available</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
         {data ? data.map((item) => {
-          return <OfferCard name={item.name} location={item.location} role={item.role_offered} branches={item.branches_allowed} cpi={item.eligibility} amount={item.ctc_lakhs}/>
+          return <OfferCard companyId={item.company_id} name={item.name} location={item.location} role={item.role_offered} branches={item.branches_allowed} cpi={item.eligibility} amount={item.ctc_lakhs}/>
         }):"Loading..."
         }
 
