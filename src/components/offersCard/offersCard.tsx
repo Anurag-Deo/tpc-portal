@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./offerCard.module.css";
-const OfferCard = ({name,role,amount,location,skills,hide=false}) => {
+const OfferCard = ({name,role,amount,location,branches,cpi,hide=false}) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>{name}</div>
@@ -9,7 +9,8 @@ const OfferCard = ({name,role,amount,location,skills,hide=false}) => {
         <p style={{textAlign: 'start'}}>
           Package Range: {amount} LPA <br />
           Location: {location} <br />
-          Skills Required: {skills} <br />
+          Eligible Branches: {branches} <br />
+          Min. CPI: {cpi} <br />
         </p>
       </div>
       <div className={styles.footer}>
