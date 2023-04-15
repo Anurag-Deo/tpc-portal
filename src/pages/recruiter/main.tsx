@@ -64,7 +64,6 @@ const main = () => {
           Here is the list of studnets who have applied to your company
         </h3>
         <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
-          {data ? console.log(data) : ""}
           {data &&
             data.map((item) => {
               return (
@@ -76,7 +75,7 @@ const main = () => {
                   email={item.email}
                   skills={item.roles}
                   role={item.role_applied}
-                  callfunction = {fetchStudent()}
+                  callfunction = {fetchStudent}
                 />
               );
             })}

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./StudentAppliedCard.module.css";
-const StudentAppliedCard = ({
-  studentRoll,
-  name,
-  email,
-  department,
-  cpi,
-  skills,
-  role,
-  callfunction
+const StudentAppliedCard = (props: {
+  studentRoll: String,
+  name: String,
+  email: String,
+  department: String,
+  cpi: Number,
+  skills: String,
+  role: String,
+  callfunction: () => void
 }) => {
   const [companyId, setCompanyId] = useState("");
   useEffect(() => {
@@ -16,14 +16,14 @@ const StudentAppliedCard = ({
     setCompanyId(compDetails.id);
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const res = await fetch("/api/company/approvestudent", {
       method: "POST",
       body: JSON.stringify({
         company_id: companyId,
-        role_offered: role,
-        student_id: studentRoll,
+        role: props.role,
+        student_id: props.studentRoll,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -35,26 +35,26 @@ const StudentAppliedCard = ({
     } else {
       console.log("Success");
     }
-    callfunction()
+    props.callfunction()
   };
 
   return (
     <div className={styles.card}>
       <div className={styles.card_border_top}></div>
       <div className={styles.img}></div>
-      <span> {name}</span>
-      <p className={styles.job}> {email}</p>
+      <span> {props.name}</span>
+      <p className={styles.job}> {props.email}</p>
       <p className={styles.job}>
-        <strong>DEPARTMENT:</strong> {department}
+        <strong>DEPARTMENT:</strong> {props.department}
       </p>
       <p className={styles.job}>
-        <strong>CPI:</strong> {cpi}
+        <strong>CPI:</strong> {props.cpi.toFixed(2)}
       </p>
       <p className={styles.job}>
-        <strong>SKILLS:</strong> {skills}
+        <strong>SKILLS:</strong> {props.skills}
       </p>
       <p className={styles.job}>
-        <strong>ROLE APPLIED:</strong> {role}
+        <strong>ROLE APPLIED:</strong> {props.role}
       </p>
       <button onClick={handleSubmit}> Recruit</button>
     </div>
