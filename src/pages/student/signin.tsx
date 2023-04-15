@@ -8,7 +8,7 @@ import Navbar from "@/components/navbar";
 const signin = () => {
   const router = useRouter();
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && localStorage.getItem("type") === "student") {
       router.push("/student/main");
     }
   }, []);
@@ -34,6 +34,7 @@ const signin = () => {
     } else {
       // console.log(data.data);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
       // console.log(localStorage.getItem("token"));
       // console.log(JSON.parse(localStorage.getItem("profile")));

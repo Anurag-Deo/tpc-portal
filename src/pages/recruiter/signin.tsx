@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const signin = () => {
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && localStorage.getItem("type") === "company") {
       router.push("/recruiter/main");
     }
   }, []);
@@ -36,6 +36,7 @@ const signin = () => {
       setError(data.error);
     } else {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
       router.push("/recruiter/main");
     }
