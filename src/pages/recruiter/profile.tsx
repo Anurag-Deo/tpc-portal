@@ -3,19 +3,52 @@ import Navbar from "@/components/recruiterNavbar";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
 import OfferCard from "@/components/offersCard/offersCard";
+import { useRouter } from "next/router";
 const profile = () => {
+  const router = useRouter();
   const [password, setPassword] = useState("")
   const [hrEmail, setHrEmail] = useState("")
   const [companyName, setCompanyName] = useState("")
+  const [id, setId] = useState('')
+  const [error, setError] = useState("");
   let data = {};
   useEffect(() => {
     data = JSON.parse(localStorage.getItem("profile"));
     console.log(data);
+    setId(data.id);
     setHrEmail(data.Hr_contacts);
     setCompanyName(data.name);
 
   }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
 
+    const res = await fetch("/api/editprofile", {
+      method: "POST",
+      body: JSON.stringify({
+        id: id,
+        name: companyName,
+        Hr_contacts: hrEmail,
+        password: password,
+        type: "company"
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    // console.log(data);
+    if (data.error) {
+      setError(data.error);
+      console.log(error);
+    } else {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("type", data.data.type);
+      localStorage.setItem("profile", JSON.stringify(data.data));
+      router.push("/recruiter/main");
+    }
+  };
   return (
     <>
       <Navbar />
@@ -122,6 +155,7 @@ const profile = () => {
                     </div> */}
                   <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="w-[55%] text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12"
                   >
                     Update Profile
@@ -156,3 +190,91 @@ const profile = () => {
 };
 
 export default profile;
+
+export async function getServerSideProps(context) {
+  const process = require('process')
+  const { google } = require('googleapis')
+  const CLIENT_ID = "791432843458-rl3lff5j32sej1e3uu5jcr46lgdtjgcc.apps.googleusercontent.com"
+  const CLIENT_SECRET = "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"
+  const REDIRECT_URI = "https://developers.google.com/oauthplayground"
+  const REFRESH_TOKEN = "1//04x49K7lH26C1CgYIARAAGAQSNwF-L9Ir_Uv-pctpKIJ2pn_jjINjtTg8334cljS62q_S6eIG0DG10EwZam2qmbafCJhBef_SAHs"
+
+  // Authenticate using google auth client
+  const oauth2Client = new google.auth.OAuth2(
+      CLIENT_ID,
+      CLIENT_SECRET,
+      REDIRECT_URI
+  )
+
+  // Setting the refresh token
+  oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+
+  // Setting the scope to drive
+  const scopes = ['https://www.googleapis.com/auth/drive']
+
+  // Creating an google drive object
+  const drive = google.drive({
+      version: 'v3',
+      auth: oauth2Client,
+  })
+
+  // folderLink will contain the object of all the required information
+  let folderLinks = []
+  try {
+      // Getting a list of all the folders inside the folderId of gallery folder and then sorting them in descending order of createdTime.
+      // The field parameter will only extract those fields from the response.
+      const folder = await drive.files.list({
+          q: `'${"1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV"}' in parents and trashed = false and mimeType='application/pdf'`,
+          fields: 'files(id, name, description, createdTime)',
+          folderId: '1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV',
+          orderBy: 'createdTime desc',
+      })
+
+      // Creating an array out of the following object
+      const folderdata = Array.from(folder.data.files)
+
+      // Poping because the last entry is gallry folder itself
+      // folderdata.pop()
+
+      // Iterating over the folderdata array and getting the images inside each folder
+      folderLinks = await Promise.all(
+          folderdata.map(async (folder) => {
+            // console.log(folder)
+            return {
+              name: folder.name,
+              link: `https://drive.google.com/file/d/${folder.id}/view?usp=sharing`,
+            }
+              // Creating an image array where all the images inside the folder will be stored and trashed=false ensure that once the file has been deleted it will not show
+              // const images = await drive.files.list({
+              //     q: `'${folder.id}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`,
+              // })
+
+              // // Now iterating over the images array and getting the link of each image
+              // const imageLinks = await Promise.all(
+              //     images.data.files.map(async (image) => {
+              //         // To create a link we will append the id of the image to the url
+              //         let url =
+              //             'https://drive.google.com/uc?export=view&id=' +
+              //             image.id
+              //         return url
+              //     })
+              // )
+              // console.log(imageLinks)
+              // Returning the required information about the image
+              // return {
+              //     name: folder.name,
+              //     desc: folder.description
+              //         ? folder.description
+              //         : 'No Description',
+              //     links: imageLinks,
+              // }
+          })
+      )
+  } catch (error) {
+      throw error
+  }
+  console.log(folderLinks)
+  return {
+      props: { folderLinks }, // will be passed to the page component as props
+  }
+}

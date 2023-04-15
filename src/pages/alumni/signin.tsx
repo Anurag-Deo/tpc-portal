@@ -11,7 +11,7 @@ const signin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && localStorage.getItem("type") === "alumni") {
       router.push("/alumni/main");
     }
   }, []);
@@ -33,6 +33,7 @@ const signin = () => {
       setError(data.error);
     } else {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
       router.push("/alumni/main");
     }
