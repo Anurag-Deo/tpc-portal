@@ -15,7 +15,6 @@ const main = () => {
       setData(data);
     };
     fetchData();
-    
   }, [])
   
   return (

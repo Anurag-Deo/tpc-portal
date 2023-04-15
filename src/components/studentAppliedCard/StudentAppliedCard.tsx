@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./StudentAppliedCard.module.css";
-const StudentAppliedCard = ({name,email,department,cpi,skills}) => {
+const StudentAppliedCard = ({name,email,department,cpi,skills,role}) => {
   return (
     <div className={styles.card}>
       <div className={styles.card_border_top}></div>
@@ -10,6 +10,7 @@ const StudentAppliedCard = ({name,email,department,cpi,skills}) => {
       <p className={styles.job}><strong>DEPARTMENT:</strong> {department}</p>
       <p className={styles.job}><strong>CPI:</strong> {cpi}</p>
       <p className={styles.job}><strong>SKILLS:</strong> {skills}</p>
+      <p className={styles.job}><strong>ROLE APPLIED:</strong> {role}</p>
       <button> Recruit</button>
     </div>
   );
