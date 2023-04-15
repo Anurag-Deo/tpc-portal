@@ -1,32 +1,57 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/recruiterNavbar";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const createoffer = () => {
   const router = useRouter();
-  const [company, setCompany] = useState('')
-  const [role, setRole] = useState('')
-  const [ctc, setCtc] = useState()
-  const [cpi, setCpi] = useState()
-  const [location, setLocation] = useState('')
-  const [branches, setBranches] = useState('')
+  const [company, setCompany] = useState("");
+  const [role, setRole] = useState("");
+  const [ctc, setCtc] = useState("");
+  const [cpi, setCpi] = useState("");
+  const [location, setLocation] = useState("");
+  const [branches, setBranches] = useState("");
   const [error, setError] = useState("");
-  let data = {}
+  let data = {};
   useEffect(() => {
     data = JSON.parse(localStorage.getItem("profile"));
-    setCompany(data.id)
-  }, [])
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if(ctc < 12){
-        setError("CTC must be greater than 12 LPA")
-        return
-    }
+    setCompany(data.id);
+  }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if(company === "" || role === "" || ctc === "" || cpi === "" || location === "" || branches === ""){
+      setError("Please fill all the fields");
+      toast.error("Please fill all the fields", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    if (Number(ctc) < 12) {
+      setError("CTC must be greater than 12 LPA");
+      toast.error("CTC must be greater than 12 LPA", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
     const res = await fetch("/api/company/createoffer", {
       method: "POST",
       body: JSON.stringify({
@@ -35,7 +60,7 @@ const createoffer = () => {
         ctc_lakhs: ctc,
         eligibility: cpi,
         location: location,
-        branches_allowed: branches
+        branches_allowed: branches,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -45,12 +70,46 @@ const createoffer = () => {
     console.log(data);
     if (data.error) {
       setError(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
+      toast.success('Job Offer Created', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+    })
+    setTimeout(() => {
       router.push("/recruiter/main");
+    }, 2000);
     }
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <Head>
         <title>TPC Recruiter Portal | Create Offer</title>
@@ -62,7 +121,7 @@ const createoffer = () => {
         <section className="bg-gray-50 dark:bg-gray-900 md:w-[50%] w-full flex align-middle justify-center items-center">
           <Lottie
             animationPath={
-              "https://assets5.lottiefiles.com/packages/lf20_s5dhjbui.json"
+              "https://assets7.lottiefiles.com/packages/lf20_wyopauto.json"
             }
           ></Lottie>
         </section>
@@ -77,12 +136,12 @@ const createoffer = () => {
                 src="https://www.iitp.ac.in/placement/images/iitp2.png"
                 alt="logo"
               />
-                TPC IITP Offer creating Portal
+              TPC IITP Offer creating Portal
             </a>
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Create offer for recruitment
+                  Create offer for recruitment
                 </h1>
                 <form className="space-y-4 md:space-y-6" action="#">
                   <div>
@@ -186,7 +245,6 @@ const createoffer = () => {
                   >
                     Create offer
                   </button>
-                  
                 </form>
               </div>
             </div>

@@ -14,7 +14,7 @@ const profile = () => {
   let data = {};
   useEffect(() => {
     data = JSON.parse(localStorage.getItem("profile"));
-    console.log(data);
+    // console.log(data);
     setId(data.id);
     setHrEmail(data.Hr_contacts);
     setCompanyName(data.name);
@@ -41,7 +41,8 @@ const profile = () => {
     // console.log(data);
     if (data.error) {
       setError(data.error);
-      console.log(error);
+      // console.log(error);
+      // TODO : Add an error Toast
     } else {
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
@@ -169,19 +170,23 @@ const profile = () => {
       <h3 className="text-4xl font-semibold text-center">Jobs Offered</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
         <OfferCard
+          companyId={"a854"}
           name={"Google"}
           location={"Banglore"}
           role={"SDE"}
-          skills={"Problem Solving"}
-          amount={"15-25"}
+          amount={"15"}
+          branches={"CSE"}
+          cpi={"8.5"}
           hide={true}
         />
         <OfferCard
-          name={"Apple"}
+          companyId={"a854"}
+          name={"Google"}
           location={"Banglore"}
           role={"SDE"}
-          skills={"Problem Solving"}
-          amount={"15-25"}
+          amount={"15"}
+          branches={"CSE"}
+          cpi={"8.5"}
           hide={true}
         />
       </div>
@@ -273,7 +278,7 @@ export async function getServerSideProps(context) {
   } catch (error) {
       throw error
   }
-  console.log(folderLinks)
+  // console.log(folderLinks)
   return {
       props: { folderLinks }, // will be passed to the page component as props
   }

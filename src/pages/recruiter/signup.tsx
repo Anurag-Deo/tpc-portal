@@ -4,6 +4,8 @@ import Link from "next/link";
 import Lottie from "@/components/lottie";
 import Navbar from "@/components/navbar";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const signup = () => {
   const router = useRouter();
@@ -12,18 +14,48 @@ const signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      toast.warning("Passwords do not match", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     if (password.length < 6 || confirmPassword.length < 6) {
       setError("Password must be atleast 6 characters long");
+      toast.warning("Password must be atleast 6 characters long", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     if (name.length < 3 || email.length < 10) {
       setError("Please enter valid details");
+      toast.warning("Please enter valid details", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
 
@@ -43,12 +75,46 @@ const signup = () => {
     console.log(data);
     if (data.error) {
       setError(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
-      router.push("/recruiter/signin");
+      toast.success("Signup Successful Redirecting to login page....", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        router.push("/recruiter/signin");
+      }, 2000);
     }
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <Head>
         <title>TPC Recruiter Portal | Sign In</title>
