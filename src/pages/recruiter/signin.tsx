@@ -4,10 +4,15 @@ import Link from "next/link";
 import Lottie from "@/components/lottie";
 import Navbar from "@/components/navbar";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const signin = () => {
   useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("type") === "company") {
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("type") === "company"
+    ) {
       router.push("/recruiter/main");
     }
   }, []);
@@ -15,10 +20,20 @@ const signin = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (name.length < 3) {
       setError("Please enter valid details");
+      toast.warning("Please enter valid details", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     const res = await fetch("/api/company/login", {
@@ -34,15 +49,52 @@ const signin = () => {
     const data = await res.json();
     if (data.error) {
       setError(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
+      toast.success(
+        "You are successfully logged in. Redirecting to the home page...",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
-      router.push("/recruiter/main");
+      setTimeout(() => {
+        router.push("/recruiter/main");
+      }, 2000);
     }
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <Head>
         <title>TPC Recruiter Portal | Sign In</title>
