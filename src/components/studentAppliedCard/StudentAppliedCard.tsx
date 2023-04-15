@@ -1,6 +1,33 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import styles from "./StudentAppliedCard.module.css";
-const StudentAppliedCard = ({name,email,department,cpi,skills,role}) => {
+const StudentAppliedCard = ({studentRoll,name,email,department,cpi,skills,role}) => {
+  const [companyId, setCompanyId] = useState('')
+  useEffect(() => {
+    const compDetails = JSON.parse(localStorage.getItem("profile"));
+    setCompanyId(compDetails.id)
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/company/approvestudent", {
+      method: "POST",
+      body: JSON.stringify({
+        company_id: companyId,
+        role_offered:role,
+        student_id: studentRoll,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.error) {
+      console.log(data.error)
+    } else {
+      console.log("Success");
+    }
+  };
+  
   return (
     <div className={styles.card}>
       <div className={styles.card_border_top}></div>
@@ -11,7 +38,7 @@ const StudentAppliedCard = ({name,email,department,cpi,skills,role}) => {
       <p className={styles.job}><strong>CPI:</strong> {cpi}</p>
       <p className={styles.job}><strong>SKILLS:</strong> {skills}</p>
       <p className={styles.job}><strong>ROLE APPLIED:</strong> {role}</p>
-      <button> Recruit</button>
+      <button onClick={handleSubmit}> Recruit</button>
     </div>
   );
 };

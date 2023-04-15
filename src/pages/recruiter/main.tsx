@@ -13,6 +13,7 @@ const main = () => {
       router.push("/company/signin");
     } 
     // setCompanyId(JSON.parse(localStorage.getItem("profile")).company_id)
+    
     const compDetails = JSON.parse(localStorage.getItem("profile"));
     setCompanyId(compDetails.id)
 
@@ -50,7 +51,14 @@ const main = () => {
         setData(data);
     }
   }
+  const fetchid = () =>{
+    const compDetails = JSON.parse(localStorage.getItem("profile"));
+    setCompanyId(compDetails.id)
+    console.log(compDetails)
+    }
   fetchStudent()
+  fetchid()
+
   }, [companyId])
   
   return (
@@ -60,8 +68,9 @@ const main = () => {
       <h2 className="text-5xl font-semibold text-center my-7">Hello, Welcome to the TPC IITP Company's Portal</h2>
       <h3 className="text-4xl font-semibold text-center my-7">Here is the list of studnets who have applied to your company</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
+        {data?console.log(data):""}
         {data && data.map((item) => {
-          return <StudentAppliedCard name={item.first_name+" "+item.last_name} cpi={item.gpa} department={item.department} email={item.email} skills={item.roles} role={item.role_applied}/>
+          return <StudentAppliedCard studentRoll={item.rollno} name={item.first_name+" "+item.last_name} cpi={item.gpa} department={item.department} email={item.email} skills={item.roles} role={item.role_applied}/>
         })}
 
 
