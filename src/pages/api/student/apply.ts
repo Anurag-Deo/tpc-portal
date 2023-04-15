@@ -9,7 +9,7 @@ import { connectToSql, disconnect } from "../../../utils/db";
  *  "company_id": "acc01",
  *  "role_applied": "FSD",
  *  }
- * */
+ **/
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Object>
