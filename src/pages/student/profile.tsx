@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 
 const profile = ({folderLinks}) => {
+  // console.log(folderLinks)
   const router = useRouter();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -47,13 +48,16 @@ const profile = ({folderLinks}) => {
     setSkills(data.roles);
     setTenthMarks(data.tenthMarks);
     setTwelfthMarks(data.twelfthMarks);
-    // const dataUrl = `data:image/png;base64,${Buffer.from(data.image).toString('base64')}`
-    // const blob = new Blob([new Uint8Array(data.image.data)], {type: 'image/jpeg'});
-    // const url = URL.createObjectURL(blob);
-    // console.log('url', url)
-    setSelectedImage(data.image);
-    // console.log(data.image);
-    // console.log(data.image.data);
+    // Iterate the folderLinks array and take the link of that item which has roll included in the name of the file
+    let link = ""
+    for(let i=0; i<folderLinks.length; i++){
+      if(folderLinks[i].name.includes(data.rollno)){
+        link = folderLinks[i].link
+        break
+      }
+    }
+    console.log(link)
+    setSelectedImage(link);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -84,19 +88,14 @@ const profile = ({folderLinks}) => {
       },
     });
     const data = await res.json();
-    // console.log(data);
     if (data.error) {
       setError(data.error);
       console.log(data.error)
     } else {
-      // console.log(data.data);
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
-      // console.log(localStorage.getItem("token"));
-      // console.log(JSON.parse(localStorage.getItem("profile")));
       router.push("/student/main");
-      // window.location.href = "/student/main";
     }
   };
 
@@ -117,28 +116,10 @@ const profile = ({folderLinks}) => {
               href="#"
               className="flex items-center mb-6 my-10 text-2xl font-semibold text-gray-900 dark:text-white"
             >
-              {/* <img
-                className="w-10 h-10 mr-2"
-                src="https://www.iitp.ac.in/placement/images/iitp2.png"
-                alt="logo"
-              /> */}
               Your Profile
             </a>
             <label>
-              <input
-                type="file"
-                hidden
-                onChange={({ target }) => {
-                  if (target.files) {
-                    const file = target.files[0];
-                    setSelectedImage(URL.createObjectURL(file));
-                    setSelectedFile(file);
-                    console.log(file);
-                    // console.log(selectedImage);
-                  }
-                }}
-              />
-              {console.log(selectedImage)}
+              
               {selectedImage ? (
                 <>
                   <img
@@ -146,16 +127,10 @@ const profile = ({folderLinks}) => {
                     src={selectedImage}
                     alt="User avatar"
                   ></img>
-                  {/* <button className="w-36 my-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12">
-                  Update Pic
-                </button> */}
                 </>
               ) : (
-                // <button className="w-36 my-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12">
-                //   Add Pic
-                // </button>
                 <span className="w-36 block my-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12">
-                  Select Image
+                  Please Add Image to see it here
                 </span>
               )}
             </label>
@@ -407,34 +382,6 @@ const profile = ({folderLinks}) => {
                       </a>
                     </div>
                   </div>
-                  {/* <label className="block">
-                    Your uploaded file : {selectedcv ? selectedcv.name : ""}
-                    <input
-                      type="file"
-                      hidden
-                      onChange={({ target }) => {
-                        if (target.files) {
-                          const file = target.files[0];
-                          setCv(URL.createObjectURL(file));
-                          setSelectedcv(file);
-                          // console.log(file);
-
-                          // console.log(file.name)
-                        }
-                      }}
-                    />
-                    <span className="w-[35%] my-5 block text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12">
-                      Upload CV
-                    </span>
-                  </label> */}
-                  {/* <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-purple-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-purple-600 dark:ring-offset-gray-800" required={true} />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-purple-600 hover:underline dark:text-purple-500" href="#">Terms and Conditions</a></label>
-                        </div>
-                    </div> */}
                   <button
                     type="submit"
                     onClick={handleSubmit}
@@ -507,9 +454,9 @@ export async function getServerSideProps(context) {
       // Getting a list of all the folders inside the folderId of gallery folder and then sorting them in descending order of createdTime.
       // The field parameter will only extract those fields from the response.
       const folder = await drive.files.list({
-          q: `'${"1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV"}' in parents and trashed = false and mimeType='application/pdf'`,
+          q: `'${"1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf"}' in parents and trashed = false and (mimeType='image/jpeg' or mimeType='image/png')`,
           fields: 'files(id, name, description, createdTime)',
-          folderId: '1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV',
+          folderId: '1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf',
           orderBy: 'createdTime desc',
       })
 
@@ -522,35 +469,10 @@ export async function getServerSideProps(context) {
       // Iterating over the folderdata array and getting the images inside each folder
       folderLinks = await Promise.all(
           folderdata.map(async (folder) => {
-            // console.log(folder)
             return {
               name: folder.name,
-              link: `https://drive.google.com/file/d/${folder.id}/view?usp=sharing`,
+              link: `https://drive.google.com/uc?export=view&id=${folder.id}`,
             }
-              // Creating an image array where all the images inside the folder will be stored and trashed=false ensure that once the file has been deleted it will not show
-              // const images = await drive.files.list({
-              //     q: `'${folder.id}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`,
-              // })
-
-              // // Now iterating over the images array and getting the link of each image
-              // const imageLinks = await Promise.all(
-              //     images.data.files.map(async (image) => {
-              //         // To create a link we will append the id of the image to the url
-              //         let url =
-              //             'https://drive.google.com/uc?export=view&id=' +
-              //             image.id
-              //         return url
-              //     })
-              // )
-              // console.log(imageLinks)
-              // Returning the required information about the image
-              // return {
-              //     name: folder.name,
-              //     desc: folder.description
-              //         ? folder.description
-              //         : 'No Description',
-              //     links: imageLinks,
-              // }
           })
       )
   } catch (error) {
