@@ -33,17 +33,19 @@ export default async function handler(
 ) {
   // verify data is correct
   if(req.body.password.localeCompare(req.body.confirmPassword)!==0){
-    return res.json({'error': 'Confirm password must match the password provided'})
+    return res
+      .status(500)
+      .json({ error: "Confirm password must match the password provided" });
   }
   try {
     const connection = connectToSql();
     // check if record exists already
     connection.query('SELECT * FROM company WHERE name = ?', [req.body.name], async function (error: Object, results: any, _fields: any) {
       if (error) {
-        res.json({'error': error})
+        res.status(500).json({ error: error });
       }
       if(results.length > 0){
-        res.json({'error': 'Company already exists'})
+        res.status(500).json({ error: "Company already exists" });
       } else {
         // insert into db
         const salt = await bcrypt.genSalt(10);
@@ -56,7 +58,7 @@ export default async function handler(
         };
         connection.query('INSERT INTO company SET ?', data, function (error: Object, _results: any, _fields: any) {
           if (error) {
-            res.json({'error': error})
+            res.status(500).json({ error: error });
           }
           const authtoken = jwt.sign({
               username: data.name,
@@ -72,6 +74,6 @@ export default async function handler(
     disconnect(connection);
     });
   } catch (error) {
-    res.json({'error': error})
+    res.status(500).json({ error: error });
   }
 }

@@ -21,15 +21,15 @@ export default async function handler(
     // check if record exists
     connection.query('SELECT * FROM students WHERE email = ?', [req.body.email], async function (error: Object, results: any, _fields: any) {
       if (error) {
-        res.json({'error': error})
+        res.status(500).json({ error: error });
       }
 
       if(results.length == 0){
-        res.json({'error': 'Student does not exist'})
+        res.status(500).json({ error: "Student does not exist" });
       } else {
         const match = await bcrypt.compare(req.body.password, results[0].password);
         if(!match){
-          res.json({'error': 'Incorrect credentials'})
+          res.status(500).json({ error: "Incorrect credentials" });
         } else {
           let col = results[0]
           var data = {
@@ -55,6 +55,6 @@ export default async function handler(
     disconnect(connection);
     });
   } catch (error) {
-    res.json({'error': error})
+    res.status(500).json({ error: error });
   }
 }

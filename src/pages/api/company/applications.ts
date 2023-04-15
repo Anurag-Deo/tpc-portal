@@ -27,6 +27,6 @@ export default async function handler(
         );
         disconnect(connection);
     } catch (error) {
-        res.json({ error: error });
+        res.status(500).json({ error: error });
     }
 }

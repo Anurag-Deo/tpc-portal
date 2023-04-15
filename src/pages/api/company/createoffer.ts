@@ -35,13 +35,13 @@ export default async function handler(
             data,
             function (error: Object, _results: any, _fields: any) {
               if (error) {
-                res.json({ error: error });
+                res.status(500).json({ error: error });
               }
               res.json({ data });
             }
           );
     disconnect(connection);
   } catch (error) {
-    res.json({ error: error });
+    res.status(500).json({ error: error });
   }
 }

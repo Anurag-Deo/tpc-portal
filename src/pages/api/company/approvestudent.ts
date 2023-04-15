@@ -27,7 +27,7 @@ export default async function handler(
       data,
       function (error: Object, _results: any, _fields: any) {
         if (error) {
-          res.json({ error: error });
+          res.status(500).json({ error: error });
         }
         res.json({ data });
       }
@@ -38,7 +38,7 @@ export default async function handler(
         [req.body.student_id, req.body.role, req.body.company_id],
         function (error: Object, _results: any, _fields: any) {
             if (error) {
-                res.json({ error: error });
+                res.status(500).json({ error: error });
             }
         }
     );

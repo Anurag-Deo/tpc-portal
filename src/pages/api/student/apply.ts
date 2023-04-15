@@ -23,7 +23,7 @@ export default async function handler(
     }
     connection.query("select * from students_applied where student_id = ?", [req.body.student_id], async function (error: Object, results: any, _fields: any) {
         if(results[0].company_id === req.body.company_id && results[0].role_applied === req.body.role_applied){
-            res.json({ error: "Already applied" });
+            res.status(500).json({ error: "Already applied" });
         }
     })
     connection.query(
@@ -31,13 +31,13 @@ export default async function handler(
       data,
       async function (error: Object, results: any, _fields: any) {
         if (error) {
-          res.json({ error: error });
+          res.status(500).json({ error: error });
         }
         res.json({ data });
         disconnect(connection);
       }
     );
   } catch (error) {
-    res.json({ error: error });
+    res.status(500).json({ error: error });
   }
 }
