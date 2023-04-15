@@ -60,7 +60,12 @@ export default async function handler(
           password: secPass,
           gender: req.body.gender,
           cv: req.body.cv,
-          image: req.body.image
+          image: req.body.image,
+          dob: req.body.dob,
+          doj: req.body.doj,
+          tenth_marks: req.body.tenth_marks,
+          twelvth_marks: req.body.twelvth_marks,
+          contact_no: req.body.contact_no
         }
         connection.query('INSERT INTO students SET ?', data, function (error: Object, _results: any, _fields: any) {
           if (error) {

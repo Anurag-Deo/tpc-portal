@@ -43,6 +43,11 @@ export default async function handler(
             gender: col.gender,
             cv: col.cv,
             image: col.image,
+            dob: col.dob,
+            doj: col.doj,
+            tenth_marks: col.tenth_marks,
+            twelvth_marks: col.twelvth_marks,
+            contact_no: col.contact_no,
             type: 'student'
           }
           const token = jwt.sign({

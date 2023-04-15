@@ -56,6 +56,9 @@ CREATE TABLE `alumni` (
   `role_applied` varchar(255) NOT NULL,
   `company_id` varchar(10) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
+  `location` varchar(100) DEFAULT NULL,
+  `working_tenure` varchar(100) DEFAULT NULL,
+  `position` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`rollid`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_company` (`company_id`),
@@ -69,7 +72,7 @@ CREATE TABLE `alumni` (
 
 LOCK TABLES `alumni` WRITE;
 /*!40000 ALTER TABLE `alumni` DISABLE KEYS */;
-INSERT INTO `alumni` VALUES ('1901CE12','Pooja Mishra','Larsen & Toubro','pooja.mishra@gmail.com',11.3,'Civil Engineer',NULL,NULL),('1901CS15','Rahul Sharma','TCS','rahul.sharma@gmail.com',12.5,'SDE',NULL,NULL),('1901CS20','Priyanka Sharma','Facebook','priyanka.sharma@gmail.com',19.5,'Software Development Engineer',NULL,NULL),('1901CS40','Neha Gupta','Google','neha.gupta@gmail.com',20.1,'Product Manager',NULL,NULL),('1901EE10','Deepak Singh','Amazon','deepak.singh@gmail.com',18.2,'Software Development Engineer',NULL,NULL),('1901EE31','Rajesh Kumar','Microsoft','rajesh.kumar@gmail.com',22.5,'Product Manager',NULL,NULL),('1901ME21','Amit Kumar','Larsen & Toubro','amit.kumar@gmail.com',12.5,'Project Manager',NULL,NULL),('1901MT25','Ankit Singh','Tata Steel','ankit.singh@gmail.com',14.8,'Metallurgical Engineer',NULL,NULL);
+INSERT INTO `alumni` VALUES ('1901CE12','Pooja Mishra','Larsen & Toubro','pooja.mishra@gmail.com',11.3,'Civil Engineer',NULL,NULL,NULL,NULL,NULL),('1901CS15','Rahul Sharma','TCS','rahul.sharma@gmail.com',12.5,'SDE',NULL,NULL,NULL,NULL,NULL),('1901CS20','Priyanka Sharma','Facebook','priyanka.sharma@gmail.com',19.5,'Software Development Engineer',NULL,NULL,NULL,NULL,NULL),('1901CS40','Neha Gupta','Google','neha.gupta@gmail.com',20.1,'Product Manager',NULL,NULL,NULL,NULL,NULL),('1901EE10','Deepak Singh','Amazon','deepak.singh@gmail.com',18.2,'Software Development Engineer',NULL,NULL,NULL,NULL,NULL),('1901EE31','Rajesh Kumar','Microsoft','rajesh.kumar@gmail.com',22.5,'Product Manager',NULL,NULL,NULL,NULL,NULL),('1901ME21','Amit Kumar','Larsen & Toubro','amit.kumar@gmail.com',12.5,'Project Manager',NULL,NULL,NULL,NULL,NULL),('1901MT25','Ankit Singh','Tata Steel','ankit.singh@gmail.com',14.8,'Metallurgical Engineer',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `alumni` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +88,9 @@ CREATE TABLE `company` (
   `name` varchar(255) NOT NULL,
   `Hr_contacts` varchar(255) NOT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `mod_interview` varchar(90) DEFAULT NULL,
+  `doiitp` varchar(90) DEFAULT NULL,
+  `logo` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,7 +101,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES ('acc01','Accenture Solutions Private Limited','hr@accenture.com',NULL),('ama01','Amazon Development Centre (India) Pvt. Ltd.','hr@amazon.com',NULL),('go01','Google India Private Limited','hr@google.com',NULL),('ibm01','International Business Machines Corporation','hr@ibm.com',NULL),('ins01','Infosys Limited','hr@infosys.com',NULL),('lnt01','Larsen & Toubro Limited','hr@lnt.com',NULL),('lt01','Larsen & Toubro','hr@lnt.com',NULL),('mic01','Microsoft India Development Center','hr@microsoft.com',NULL),('tcs01','Tata Consultancy Services','hr@tcs.com',NULL),('wip01','Wipro Limited','hr@wipro.com',NULL);
+INSERT INTO `company` VALUES ('acc01','Accenture Solutions Private Limited','hr@accenture.com',NULL,NULL,NULL,NULL),('ama01','Amazon Development Centre (India) Pvt. Ltd.','hr@amazon.com',NULL,NULL,NULL,NULL),('go01','Google India Private Limited','hr@google.com',NULL,NULL,NULL,NULL),('ibm01','International Business Machines Corporation','hr@ibm.com',NULL,NULL,NULL,NULL),('ins01','Infosys Limited','hr@infosys.com',NULL,NULL,NULL,NULL),('lnt01','Larsen & Toubro Limited','hr@lnt.com',NULL,NULL,NULL,NULL),('lt01','Larsen & Toubro','hr@lnt.com',NULL,NULL,NULL,NULL),('mic01','Microsoft India Development Center','hr@microsoft.com',NULL,NULL,NULL,NULL),('tcs01','Tata Consultancy Services','hr@tcs.com',NULL,NULL,NULL,NULL),('wip01','Wipro Limited','hr@wipro.com',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,13 +151,13 @@ CREATE TABLE `students` (
   `roles` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `gender` enum('Male','Female','Other') NOT NULL,
-  `cv` longblob,
-  `image` longblob,
   `dob` date DEFAULT NULL,
   `doj` date DEFAULT NULL,
   `contact_no` varchar(16) DEFAULT NULL,
-  `10th_marks` varchar(20) DEFAULT NULL,
-  `12th_marks` varchar(20) DEFAULT NULL,
+  `tenth_marks` varchar(20) DEFAULT NULL,
+  `twelvth_marks` varchar(20) DEFAULT NULL,
+  `image` varchar(10000) DEFAULT NULL,
+  `cv` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`rollno`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -163,7 +169,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES ('2101CE01','Neha','Jain','neha_2101ce01@iitp.ac.in',8.5,'Civil Engineering','Structural Engineer, Environmental Engineer, Geotechnical Engineer, Transportation Engineer','mypassword','Female',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101CE02','Kavita','Banerjee','kavita_2101ce02@iitp.ac.in',8.7,'Civil Engineering','Structural Engineer, Environmental Engineer, Geotechnical Engineer, Transportation Engineer','mypassword','Female',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101CS30','Rahul','Sharma','rahul_2101ai40@iitp.ac.in',8.9,'Computer Science','SDE, Data Analyst, ML Engineer, Consultancy','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101EE01','Priya','Chopra','priya_2101ee01@iitp.ac.in',9.4,'Electrical Engineering','Power System Engineer, Control Systems Engineer, Electronics Engineer, Research and Development','mypassword','Female',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101EE02','Sachin','Verma','sachin_2101ee02@iitp.ac.in',9.2,'Electrical Engineering','Power System Engineer, Control Systems Engineer, Electronics Engineer, Research and Development','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101ME01','Amit','Singh','amit_2101me01@iitp.ac.in',8.1,'Mechanical Engineering','Design Engineer, Quality Control, Manufacturing Engineer, Project Management','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101ME02','Rohit','Gupta','rohit_2101me02@iitp.ac.in',8.3,'Mechanical Engineering','Design Engineer, Quality Control, Manufacturing Engineer, Project Management','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101MT01','Vikas','Kumar','vikas_2101mt01@iitp.ac.in',9.7,'Materials Science and Engineering','Materials Scientist, Metallurgist, Product Development Engineer, Quality Control','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL),('2101MT02','Shivam','Sinha','shivam_2101mt02@iitp.ac.in',9.1,'Materials Science and Engineering','Materials Scientist, Metallurgist, Product Development Engineer, Quality Control','mypassword','Male',_binary 'cv.pdf',_binary 'profile_pic.jpg',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `students` VALUES ('2101CE01','Neha','Jain','neha_2101ce01@iitp.ac.in',8.5,'Civil Engineering','Structural Engineer, Environmental Engineer, Geotechnical Engineer, Transportation Engineer','mypassword','Female','2003-12-02',NULL,NULL,NULL,NULL,NULL,NULL),('2101CE02','Kavita','Banerjee','kavita_2101ce02@iitp.ac.in',8.7,'Civil Engineering','Structural Engineer, Environmental Engineer, Geotechnical Engineer, Transportation Engineer','mypassword','Female',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101CS30','Rahul','Sharma','rahul_2101ai40@iitp.ac.in',8.9,'Computer Science','SDE, Data Analyst, ML Engineer, Consultancy','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101EE01','Priya','Chopra','priya_2101ee01@iitp.ac.in',9.4,'Electrical Engineering','Power System Engineer, Control Systems Engineer, Electronics Engineer, Research and Development','mypassword','Female',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101EE02','Sachin','Verma','sachin_2101ee02@iitp.ac.in',9.2,'Electrical Engineering','Power System Engineer, Control Systems Engineer, Electronics Engineer, Research and Development','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101ME01','Amit','Singh','amit_2101me01@iitp.ac.in',8.1,'Mechanical Engineering','Design Engineer, Quality Control, Manufacturing Engineer, Project Management','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101ME02','Rohit','Gupta','rohit_2101me02@iitp.ac.in',8.3,'Mechanical Engineering','Design Engineer, Quality Control, Manufacturing Engineer, Project Management','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101MT01','Vikas','Kumar','vikas_2101mt01@iitp.ac.in',9.7,'Materials Science and Engineering','Materials Scientist, Metallurgist, Product Development Engineer, Quality Control','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2101MT02','Shivam','Sinha','shivam_2101mt02@iitp.ac.in',9.1,'Materials Science and Engineering','Materials Scientist, Metallurgist, Product Development Engineer, Quality Control','mypassword','Male',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,6 +211,7 @@ CREATE TABLE `students_placed` (
   `company_id` varchar(10) NOT NULL,
   `student_id` varchar(10) NOT NULL,
   `role` varchar(255) DEFAULT NULL,
+  `ctc` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`company_id`,`student_id`),
   KEY `student_id` (`student_id`),
   CONSTRAINT `students_placed_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`),
@@ -230,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-13  1:09:27
+-- Dump completed on 2023-04-15 23:58:59
