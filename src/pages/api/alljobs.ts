@@ -10,7 +10,7 @@ export default async function handler(
         const connection = connectToSql();
         connection.query("SELECT * FROM offers natural join company where id = company_id", async function (error: Object, results: any, _fields: any) {
             if (error) {
-                res.json({ error: error });
+                res.status(500).json({ error: error });
             }
             res.json(results);
         });

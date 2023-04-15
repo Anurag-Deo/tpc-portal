@@ -18,10 +18,10 @@ export default async function handler(
         [req.body.rollno],
         async function (error: Object, results: any, _fields: any) {
           if (error) {
-            res.json({ error: error });
+            res.status(500).json({ error: error });
           }
           if (results.length == 0) {
-            res.json({ error: "Student does not exist" });
+            res.status(500).json({ error: "Student does not exist" });
           } else {
             // insert into db
             const salt = await bcrypt.genSalt(10);
@@ -49,7 +49,7 @@ export default async function handler(
               [data, req.body.rollno],
               function (error: Object, _results: any, _fields: any) {
                 if (error) {
-                  res.json({ error: error });
+                  res.status(500).json({ error: error });
                 }
                 const authtoken = jwt.sign(
                   {
@@ -74,10 +74,10 @@ export default async function handler(
         [req.body.rollid],
         async function (error: Object, results: any, _fields: any) {
           if (error) {
-            res.json({ error: error });
+            res.status(500).json({ error: error });
           }
           if (results.length == 0) {
-            res.json({ error: "Alumni does not exist" });
+            res.status(500).json({ error: "Alumni does not exist" });
           } else {
             // insert into db
             const salt = await bcrypt.genSalt(10);
@@ -97,7 +97,7 @@ export default async function handler(
               [data, req.body.rollid],
               function (error: Object, _results: any, _fields: any) {
                 if (error) {
-                  res.json({ error: error });
+                  res.status(500).json({ error: error });
                 }
                 const authtoken = jwt.sign(
                   {
@@ -122,10 +122,10 @@ export default async function handler(
         [req.body.id],
         async function (error: Object, results: any, _fields: any) {
           if (error) {
-            res.json({ error: error });
+            res.status(500).json({ error: error });
           }
           if (results.length == 0) {
-            res.json({ error: "Company does not exist" });
+            res.status(500).json({ error: "Company does not exist" });
           } else {
             // insert into db
             const salt = await bcrypt.genSalt(10);
@@ -141,7 +141,7 @@ export default async function handler(
               [data, req.body.id],
               function (error: Object, _results: any, _fields: any) {
                 if (error) {
-                  res.json({ error: error });
+                  res.status(500).json({ error: error });
                 }
                 const authtoken = jwt.sign(
                   {
@@ -160,9 +160,9 @@ export default async function handler(
         }
       );
     }else{
-        res.json({error: "Invalid type"})
+        res.status(500).json({ error: "Invalid type" });
     }
   } catch (error) {
-    res.json({ error: error });
+    res.status(500).json({ error: error });
   }
 }
