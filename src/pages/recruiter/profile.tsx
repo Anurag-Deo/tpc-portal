@@ -10,6 +10,7 @@ const profile = () => {
   const [hrEmail, setHrEmail] = useState("")
   const [companyName, setCompanyName] = useState("")
   const [id, setId] = useState('')
+  const [students, setStudents] = useState()
   const [error, setError] = useState("");
   let data = {};
   useEffect(() => {
@@ -18,7 +19,7 @@ const profile = () => {
     setId(data.id);
     setHrEmail(data.Hr_contacts);
     setCompanyName(data.name);
-
+    
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -4,11 +4,16 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
 import Navbar from "@/components/navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const signin = () => {
   const router = useRouter();
   useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("type") === "student") {
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("type") === "student"
+    ) {
       router.push("/student/main");
     }
   }, []);
@@ -31,6 +36,16 @@ const signin = () => {
     // console.log(data);
     if (data.error) {
       setError(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
       // console.log(data.data);
       localStorage.setItem("token", data.token);
@@ -44,6 +59,18 @@ const signin = () => {
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <Head>
         <title>TPC Student Portal | Sign In</title>
