@@ -1,13 +1,6 @@
-// TODO: See total students applied for a particular company
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connectToSql, disconnect } from "../../../utils/db";
-
-/**
- *
- * @param req student_id
- * @param res
- */
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,8 +9,7 @@ export default async function handler(
   try {
     const connection = connectToSql();
     connection.query(
-      "select * from offers natural join (select * from students_applied, company where id=company_id) as a where role_applied = role_offered and student_id = ?",
-      [req.body.student_id],
+      "SELECT * FROM students",
       async function (error: Object, results: any, _fields: any) {
         if (error) {
           res.status(500).json({ error: error });
