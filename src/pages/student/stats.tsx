@@ -6,22 +6,52 @@ import tableData1 from "../../components/table/tableData1.json";
 const stats = () => {
   const [keyword, setKeyword] = useState("");
   const [tableData, setTableData] = useState(tableData1);
+  const [alumni, setAlumni] = useState()
   const [currentData, setCurrentData] = useState(tableData1);
   const [currentPage, setCurrentPage] = useState(1);
   const [postperPage, setPostperPage] = useState(5);
+  const [table, setTable] = useState("Company");
+  const fetchData = async () => {
+    const response = await fetch('/api/alljobs');
+    const data = await response.json();
+    setTableData(data);
+    console.log(data);
+  };
+  const fetchAlumni = async () => {
+    const response = await fetch('/api/alumni/allalumns');
+    const data = await response.json();
+    setAlumni(data);
+    // setTableData(data);
+    console.log(data);
+  };
   useEffect(() => {
+    fetchData();
+    fetchAlumni();
+  }, [])
+  
+
+  useEffect(() => {
+    fetchData();
+  }, [table])
+  
+  useEffect(() => {
+    // fetchData();
     const indexOfLastPost = currentPage * postperPage;
     const indexOfFirstPost = indexOfLastPost - postperPage;
     if (keyword !== "") {
-      const newTableData = tableData1.filter((data) => {
+      const newTableData = tableData.filter((data) => {
         return Object.values(data)
           .join(" ")
           .toLowerCase()
           .includes(keyword.toLowerCase());
       });
-      setTableData(newTableData.slice(indexOfFirstPost, indexOfLastPost));
-    } else {
-      setTableData(tableData1.slice(indexOfFirstPost, indexOfLastPost));
+      setTableData(newTableData)
+    //   setTableData(newTableData.slice(indexOfFirstPost, indexOfLastPost));
+    // } else {
+    //   setTableData(tableData.slice(indexOfFirstPost, indexOfLastPost));
+    }
+    else{
+      fetchData()
     }
   }, [keyword, postperPage, currentPage]);
 
@@ -44,6 +74,31 @@ const stats = () => {
     { label: "CPI", accessor: "age", sortable: true },
     { label: "Branch", accessor: "branch", sortable: true },
   ];
+  const companyColumns = [
+    { label: "Name", accessor: "name", sortable: true },
+    { label: "Email", accessor: "Hr_contacts", sortable: true },
+    { label: "Job Offered", accessor: "role_offered", sortable: true },
+    { label: "CTC", accessor: "ctc_lakhs", sortable: true },
+    { label: "Branch", accessor: "branches_allowed", sortable: true },
+  ];
+  const placedColumns = [
+    { label: "Name", accessor: "name", sortable: true },
+    { label: "email", accessor: "email", sortable: true },
+    { label: "Mobile No.", accessor: "mob", sortable: true },
+    { label: "Branch", accessor: "branch", sortable: true },
+    { label: "Company", accessor: "company_name", sortable: true },
+    { label: "CTC", accessor: "ctc_lakhs", sortable: true },
+    { label: "Role", accessor: "role", sortable: true },
+  ];
+  const alumniColumns = [
+    { label: "Name", accessor: "name", sortable: true },
+    { label: "email", accessor: "email", sortable: true },
+    { label: "Mobile No.", accessor: "mob", sortable: true },
+    { label: "Branch", accessor: "branch", sortable: true },
+    { label: "Company", accessor: "company_name", sortable: true },
+    { label: "CTC", accessor: "ctc_lakhs", sortable: true },
+    { label: "Role", accessor: "role", sortable: true },
+  ];
   return (
     <>
       <Navbar />
@@ -54,7 +109,7 @@ const stats = () => {
           </h2>
           <div className="my-2 flex sm:flex-row flex-col justify-between">
             <div className="flex flex-row mb-1 sm:mb-0 gap-x-5">
-              <div className="relative">
+              {/* <div className="relative">
                 <select
                   value={postperPage}
                   onChange={(e) => setPostperPage(e.target.value)}
@@ -73,13 +128,15 @@ const stats = () => {
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </div>
-              </div>
+              </div> */}
               <div className="relative">
-                <select className="appearance-none h-full rounded-r border  block  w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                  <option>Student</option>
+                <select 
+                value={table}
+                onChange={(e) => setTable(e.target.value)}
+                className="appearance-none h-full rounded-r border  block  w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
                   <option>Placed Student</option>
                   <option>Company</option>
-                  <option>alumni</option>
+                  <option>Alumni</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg
@@ -113,15 +170,37 @@ const stats = () => {
               />
             </div>
           </div>
+          {/* <Table
+            caption=""
+            key={tableData}
+            data={tableData}
+            columns={companyColumns}
+          /> */}
+          {table == "Placed Student" ?(
           <Table
             caption=""
             key={tableData}
             data={tableData}
-            columns={columns}
+            columns={placedColumns}
           />
+          ):table == "Company" ?(
+            <Table
+            caption=""
+            key={tableData}
+            data={tableData}
+            columns={companyColumns}
+          />
+          ):table == "alumni" ?(
+            <Table
+            caption=""
+            key={tableData}
+            data={tableData}
+            columns={alumniColumns}
+          />
+          ):null}
           <br />
         </div>
-        <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+        {/* <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
           <span className="text-xs xs:text-sm text-gray-900">
             Showing 1 to 4 of 50 Entries
           </span>
@@ -145,7 +224,7 @@ const stats = () => {
               Next
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
