@@ -16,7 +16,7 @@ export default async function handler(
   try {
     const connection = connectToSql();
     connection.query(
-      "select * from offers where company_id = ?",
+      "select * from offers natural join company where id=company_id and company_id = ?",
       [req.body.company_id],
       async function (error: Object, results: any, _fields: any) {
         if (error) {
