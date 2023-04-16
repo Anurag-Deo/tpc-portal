@@ -23,10 +23,6 @@ const RecruiterNavbar = () => {
         <li>
           <Link href="/recruiter/main" className={`"block py-2 pl-3 pr-4  ${router.pathname.split("/")[2] == "main" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`} aria-current="page">Home</Link>
         </li>
-        
-        <li>
-          <Link href="/recruiter/stats" className={`"block py-2 pl-3 pr-4  ${router.pathname.split("/")[2] == "stats" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`}>Get Statsitics</Link>
-        </li>
         <li>
           <Link href="/recruiter/createoffer" className={`"block py-2 pl-3 pr-4  ${router.pathname.split("/")[2] == "createoffer" ? "text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"} "`}>Create Offer</Link>
         </li>

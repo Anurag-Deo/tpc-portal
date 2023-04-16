@@ -46,6 +46,9 @@ const signup = () => {
         role_applied: "",
         password: password,
         confirmPassword: confirmPassword,
+        location: "",
+        working_center: "",
+        position: ""
       }),
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +58,7 @@ const signup = () => {
     // console.log(data);
     if (data.error) {
       setError(data.error);
+      console.log(data.error);
     } else {
       router.push("/alumni/signin");
     }

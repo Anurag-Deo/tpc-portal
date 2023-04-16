@@ -92,7 +92,6 @@ export default async function handler(
               company_id: req.body.company_id,
               password: secPass,
               location: req.body.location,
-              working_centre: req.body.working_centre,
               position: req.body.position,
             };
             connection.query(

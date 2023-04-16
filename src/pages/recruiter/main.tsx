@@ -61,7 +61,7 @@ const main = () => {
           Hello, Welcome to the TPC IITP Company's Portal
         </h2>
         <h3 className="text-4xl font-semibold text-center my-7">
-          Here is the list of studnets who have applied to your company
+          Here is the list of students who have applied to your company
         </h3>
         <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
           {data &&

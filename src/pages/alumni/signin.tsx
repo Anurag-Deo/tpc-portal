@@ -12,7 +12,7 @@ const signin = () => {
   const [error, setError] = useState("");
   useEffect(() => {
     if (localStorage.getItem("token") && localStorage.getItem("type") === "alumni") {
-      router.push("/alumni/main");
+      router.push("/alumni/profile");
     }
   }, []);
   const handleSubmit = async (e) => {
@@ -35,7 +35,7 @@ const signin = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
-      router.push("/alumni/main");
+      router.push("/alumni/profile");
     }
   };
   return (
