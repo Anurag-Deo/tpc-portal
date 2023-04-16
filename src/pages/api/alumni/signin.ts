@@ -49,6 +49,9 @@ export default async function handler(
           ctc: req.body.ctc,
           role_applied: req.body.role_applied,
           password: secPass,
+          location: req.body.location,
+          working_centre: req.body.working_centre,
+          position: req.body.position,
         };
         connection.query('INSERT INTO alumni SET ?', data, function (error: Object, _results: any, _fields: any) {
           if (error) {

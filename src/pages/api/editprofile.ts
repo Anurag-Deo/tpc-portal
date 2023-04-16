@@ -91,6 +91,9 @@ export default async function handler(
               role_applied: req.body.role_applied,
               company_id: req.body.company_id,
               password: secPass,
+              location: req.body.location,
+              working_centre: req.body.working_centre,
+              position: req.body.position,
             };
             connection.query(
               "update alumni SET ? where rollid = ?",

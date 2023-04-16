@@ -38,6 +38,10 @@ export default async function handler(
             email: col.email,
             ctc: col.ctc,
             role_applied: col.role_applied,
+            company_id: col.company_id,
+            location: col.location,
+            working_tenure: col.working_tenure,
+            position: col.position,
             type: 'alumni'
           };
           const token = jwt.sign({
