@@ -1,0 +1,60 @@
+.card {
+    width: 300px;
+    height: 400px;
+    background: #3405a3;
+    border-radius: 15px;
+    box-shadow: 1px 5px 60px 0px #100a886b;
+   }
+   
+   .card .card_border_top {
+    width: 60%;
+    height: 5%;
+    background: #6b64f3;
+    margin: auto;
+    border-radius: 0px 0px 15px 15px;
+   }
+   
+   .card span {
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    /* margin-left: 30px; */
+    display: block;
+    padding-top: 10px;
+    font-size: 22px;
+   }
+   
+   .card .job {
+    font-weight: 400;
+    color: white;
+    display: block;
+    /* text-align: center; */
+    margin-left: 40px;
+    padding-top: 3px;
+    font-size: 15px;
+   }
+   
+   .card .img {
+    width: 100px;
+    height: 100px;
+    background: #6b64f3;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 25px;
+   }
+   
+   .card button {
+    padding: 8px 25px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+    background: #6b64f3;
+    color: white;
+    font-weight: 600;
+   }
+   
+   .card button:hover {
+    background: #534bf3;
+   }

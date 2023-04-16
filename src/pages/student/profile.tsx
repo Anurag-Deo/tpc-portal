@@ -4,9 +4,10 @@ import { GoogleAuth } from "google-auth-library";
 import { drive_v3, google } from "googleapis";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
-import OfferCard from "@/components/offersCard/offersCard";
+import OfferCard from "@/components/offerCard2/OfferCard2";
 import { useRouter } from "next/router";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const profile = ({folderLinks}) => {
   // console.log(folderLinks)
@@ -28,12 +29,43 @@ const profile = ({folderLinks}) => {
   const [mobile, setMobile] = useState("");
   const [yoj, setYoj] = useState("");
   const [skills, setSkills] = useState("")
-  const [tenthMarks, setTenthMarks] = useState()
-  const [twelfthMarks, setTwelfthMarks] = useState()
+  const [tenthMarks, setTenthMarks] = useState('')
+  const [twelfthMarks, setTwelfthMarks] = useState('')
   const [error, setError] = useState("");
-  let data = {};
+  const [appliedOffers, setAppliedOffers] = useState()
+  // let data = {};
+  const fetchApplied = async () => {
+    const res = await fetch("/api/student/viewapplied", {
+      method: "POST",
+      body: JSON.stringify({
+        student_id: roll,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.error) {
+      // console.log(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      // router.push("/stud/main");
+      // console.log(data.data);
+      console.log(data);
+      setAppliedOffers(data);
+    }
+  };
   useEffect(() => {
-    data = JSON.parse(localStorage.getItem("profile"));
+    const data = JSON.parse(localStorage.getItem("profile"));
     console.log(data);
     setFirstname(data.first_name);
     setLastname(data.last_name);
@@ -58,9 +90,16 @@ const profile = ({folderLinks}) => {
     }
     console.log(link)
     setSelectedImage(link);
+    
   }, []);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    console.log(roll)
+    fetchApplied();
+  }, [roll])
+  
+
+  const handleSubmit = async (e : any) => {
     e.preventDefault();
     const res = await fetch("/api/editprofile", {
       method: "POST",
@@ -352,7 +391,7 @@ const profile = ({folderLinks}) => {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
-                    <div className="w-[100%]">
+                    <div className="w-[50%]">
                       <label
                         htmlFor="skills"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -368,6 +407,42 @@ const profile = ({folderLinks}) => {
                         required={true}
                         value={skills}
                         onChange={(e) => setSkills(e.target.value)}
+                      />
+                    </div>
+                    <div className="w-[25%]">
+                      <label
+                        htmlFor="tenthMarks"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Tenth Percentage
+                      </label>
+                      <input
+                        type="text"
+                        name="tenthMarks"
+                        id="tenthMarks"
+                        // placeholder="Male/Female/Other"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required={true}
+                        value={tenthMarks}
+                        onChange={(e) => setTenthMarks(e.target.value)}
+                      />
+                    </div>
+                    <div className="w-[25%]">
+                      <label
+                        htmlFor="12thMarks"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Twelveth Percentage
+                      </label>
+                      <input
+                        type="text"
+                        name="12thMarks"
+                        id="12tMarks"
+                        // placeholder="Male/Female/Other"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required={true}
+                        value={twelfthMarks}
+                        onChange={(e) => setTenthMarks(e.target.value)}
                       />
                     </div>
                   </div>
@@ -397,22 +472,18 @@ const profile = ({folderLinks}) => {
       </div>
       <h3 className="text-4xl my-16 font-semibold text-center">Applied Jobs</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
+        {appliedOffers? appliedOffers.map((offer) => (
         <OfferCard
-          name={"Google"}
-          location={"Banglore"}
-          role={"SDE"}
-          skills={"Problem Solving"}
-          amount={"15-25"}
+          companyId={offer.company_id}
+          name={offer.name}
+          location={offer.location}
+          role={offer.role_offered}
+          branches={offer.branches_allowed}
+          package={offer.ctc_lakhs}
+          cpi={offer.eligibility}
           hide={true}
-        />
-        <OfferCard
-          name={"Apple"}
-          location={"Banglore"}
-          role={"SDE"}
-          skills={"Problem Solving"}
-          amount={"15-25"}
-          hide={true}
-        />
+        />  
+        )): null}
       </div>
     </>
   );

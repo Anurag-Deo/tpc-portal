@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/recruiterNavbar";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
-import OfferCard from "@/components/offersCard/offersCard";
+import OfferCard from "@/components/offerCard2/OfferCard2";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const profile = () => {
   const router = useRouter();
   const [password, setPassword] = useState("")
@@ -12,16 +15,51 @@ const profile = () => {
   const [id, setId] = useState('')
   const [students, setStudents] = useState()
   const [error, setError] = useState("");
-  let data = {};
+  const [createdOffers, setCreatedOffers] = useState()
+  // let data = {};
+  const fetchCreated = async () => {
+    const res = await fetch("/api/company/viewoffers", {
+      method: "POST",
+      body: JSON.stringify({
+        company_id: id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.error) {
+      // console.log(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      // router.push("/stud/main");
+      // console.log(data.data);
+      console.log(data);
+      setCreatedOffers(data);
+    }
+  };
   useEffect(() => {
-    data = JSON.parse(localStorage.getItem("profile"));
+    const data = JSON.parse(localStorage.getItem("profile"));
     // console.log(data);
     setId(data.id);
     setHrEmail(data.Hr_contacts);
     setCompanyName(data.name);
     
   }, []);
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    fetchCreated();
+  }, [id]);
+
+  const handleSubmit = async (e :any) => {
     e.preventDefault();
     
 
@@ -170,26 +208,18 @@ const profile = () => {
       </div>
       <h3 className="text-4xl font-semibold text-center">Jobs Offered</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
+      {createdOffers? createdOffers.map((offer) => (
         <OfferCard
-          companyId={"a854"}
-          name={"Google"}
-          location={"Banglore"}
-          role={"SDE"}
-          amount={"15"}
-          branches={"CSE"}
-          cpi={"8.5"}
+          companyId={offer.company_id}
+          name={offer.name}
+          location={offer.location}
+          role={offer.role_offered}
+          branches={offer.branches_allowed}
+          package={offer.ctc_lakhs}
+          cpi={offer.eligibility}
           hide={true}
-        />
-        <OfferCard
-          companyId={"a854"}
-          name={"Google"}
-          location={"Banglore"}
-          role={"SDE"}
-          amount={"15"}
-          branches={"CSE"}
-          cpi={"8.5"}
-          hide={true}
-        />
+        />  
+        )): null}
       </div>
     </>
   );

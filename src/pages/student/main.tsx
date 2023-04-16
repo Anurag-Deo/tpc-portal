@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import OfferCard from '@/components/offersCard/offersCard'
+import OfferCard from "@/components/offerCard2/OfferCard2";
 import Navbar from '@/components/studentNavbar'
 import { useRouter } from 'next/router'
 const main = () => {
@@ -13,6 +13,7 @@ const main = () => {
       const response = await fetch('/api/alljobs');
       const data = await response.json();
       setData(data);
+      console.log(data);
     };
     fetchData();
   }, [])
@@ -25,7 +26,7 @@ const main = () => {
       <h3 className="text-4xl font-semibold text-center my-7">Here are some placement offers available</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
         {data ? data.map((item) => {
-          return <OfferCard companyId={item.company_id} name={item.name} location={item.location} role={item.role_offered} branches={item.branches_allowed} cpi={item.eligibility} amount={item.ctc_lakhs}/>
+          return <OfferCard companyId={item.company_id} name={item.name} location={item.location} role={item.role_offered} branches={item.branches_allowed} cpi={item.eligibility} package={item.ctc_lakhs} hide={false}/>
         }):"Loading..."
         }
 
