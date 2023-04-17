@@ -37,8 +37,9 @@ const signup = () => {
       setError("Please enter valid email");
       return;
     }
-
+    console.log("here");
     const res = await fetch("/api/student/signin", {
+      
       method: "POST",
       body: JSON.stringify({
         first_name: firstname,

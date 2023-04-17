@@ -90,7 +90,7 @@ const StudentAppliedCard = (props: {
           <strong>ROLE:</strong> {props.role}
         </p>
         <p className={styles.job}>
-          <strong>PACKAGE:</strong> {props.package}
+          <strong>PACKAGE:</strong> {props.package} LPA
         </p>
         <p className={styles.job}>
           <strong>MIN. CPI:</strong> {props.cpi}
