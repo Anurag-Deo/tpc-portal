@@ -37,10 +37,14 @@
    .card .img {
     width: 100px;
     height: 100px;
-    background: #6b64f3;
+    background: #eae9ff;
     border-radius: 15px;
     margin: auto;
     margin-top: 25px;
+   }
+
+   .card .img img{
+    border-radius: 15px;
    }
    
    .card button {

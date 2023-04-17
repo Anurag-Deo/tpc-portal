@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@rpldy/upload-button": "^1.4.1",
+    "@rpldy/uploady": "^1.4.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/mysql": "^2.15.21",
@@ -18,6 +20,7 @@
     "@types/react-dom": "18.0.11",
     "@types/react-toastify": "^4.1.0",
     "bcryptjs": "^2.4.3",
+    "drive-uploady": "^0.3.0",
     "google-auth-library": "^8.7.0",
     "googleapis": "^117.0.0",
     "jsonwebtoken": "^9.0.0",

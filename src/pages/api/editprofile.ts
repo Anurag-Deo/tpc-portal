@@ -136,6 +136,7 @@ export default async function handler(
               name: req.body.name,
               Hr_contacts: req.body.Hr_contacts,
               password: secPass,
+              logo: req.body.logo,
             };
             connection.query(
               "update company SET ? where id = ?",

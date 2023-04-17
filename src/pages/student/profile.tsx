@@ -80,8 +80,8 @@ const profile = ({folderLinks,cvLinks}) => {
     const formatedDoj = new Date(data.doj);
     setYoj(formatedDoj.toDateString());
     setSkills(data.roles);
-    setTenthMarks(data.tenthMarks);
-    setTwelfthMarks(data.twelfthMarks);
+    setTenthMarks(data.tenth_marks);
+    setTwelfthMarks(data.twelvth_marks);
     // Iterate the folderLinks array and take the link of that item which has roll included in the name of the file
     let imglink = ""
     for(let i=0; i<folderLinks.length; i++){
@@ -102,7 +102,7 @@ const profile = ({folderLinks,cvLinks}) => {
     }
     console.log(cvlink)
     setSelectedcv(cvlink);
-    
+    fetchApplied()
   }, []);
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const profile = ({folderLinks,cvLinks}) => {
         doj: new Date(yoj).toISOString().slice(0, 19).replace('T', ' '),
         contact_no: mobile,
         tenth_marks: tenthMarks,
-        twelfth_marks: twelfthMarks,
+        twelvth_marks: twelfthMarks,
         type: "student",
         image: selectedImage,
         cv: selectedcv
@@ -148,7 +148,7 @@ const profile = ({folderLinks,cvLinks}) => {
       localStorage.setItem("type", data.data.type);
       console.log(JSON.stringify(data.data))
       localStorage.setItem("profile", JSON.stringify(data.data));
-      // router.push("/student/main");
+      router.push("/student/main");
     }
   };
 
@@ -495,6 +495,7 @@ const profile = ({folderLinks,cvLinks}) => {
           branches={offer.branches_allowed}
           package={offer.ctc_lakhs}
           cpi={offer.eligibility}
+          logo={offer.logo}
           hide={true}
         />  
         )): null}

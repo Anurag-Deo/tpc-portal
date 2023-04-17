@@ -100,6 +100,89 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@rpldy/abort@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/abort/-/abort-1.4.1.tgz#419c48aee58fb30ee83b7d2d235d23b80d11e69b"
+  integrity sha512-khzNZW/9KNmL7j0FavBcFyO4ne7gloY6sGRixE+wnmzwHNL9PkpPzeuVZwBrlQceIeL/M08MtXtgYpzyz8/n4g==
+  dependencies:
+    "@rpldy/raw-uploader" "^1.4.1"
+    "@rpldy/shared" "^1.4.1"
+    "@rpldy/simple-state" "^1.4.1"
+
+"@rpldy/life-events@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/life-events/-/life-events-1.4.1.tgz#e56c5438cd19c900f5d9996edd774cf5f88397f0"
+  integrity sha512-2iH8UXW0e6T5dkXOOfLLwxXgrHJHP7vgl5ux8mcelzUPo2hlpVgO0yBmyW5lf5cEq2+UVzIJ6k7uGuUPLMCibw==
+  dependencies:
+    "@rpldy/shared" "^1.4.1"
+
+"@rpldy/raw-uploader@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/raw-uploader/-/raw-uploader-1.4.1.tgz#0a515a590df3bea0954685299ac552fccf2a3d1f"
+  integrity sha512-UmWUAGuxvxScB1PEfkUFW/KdTLrxDg2rgGvE58I6lMvbs9cra3AmNtcot8z8GDZ140UX6Eh378y2G25yde7ycg==
+  dependencies:
+    "@rpldy/life-events" "^1.4.1"
+    "@rpldy/shared" "^1.4.1"
+
+"@rpldy/sender@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/sender/-/sender-1.4.1.tgz#0125bc8ce4351b615375dd3843335d2632112147"
+  integrity sha512-cPAsBzRr/i+8XhalbGADLdTHLX2uKeBaA0TsjevWQRFNxTL/Pcof9pwETEvcUfC3+JhkP29EP3YG0EBBDZmc9A==
+  dependencies:
+    "@rpldy/shared" "^1.4.1"
+
+"@rpldy/shared-ui@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared-ui/-/shared-ui-1.4.1.tgz#084978d4f097b63be8f7ae256fad835d56d205e7"
+  integrity sha512-ywWuCbSEuxovZOQXkF+KA1jvo0Z+g1fpFFO5O2a/jh1XrFu7O5KptrAsQDJ/WmTkTT7ipKs+N3viKNNgqsIcUg==
+  dependencies:
+    "@rpldy/shared" "^1.4.1"
+    "@rpldy/uploader" "^1.4.1"
+
+"@rpldy/shared@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared/-/shared-1.4.1.tgz#d31d2f920a11114d9a96e247b2969fd5a77dd49a"
+  integrity sha512-6YlPd+/nZnkENI2M2SZjmj+rDqDYH1Ymw9egTNlAAN1x+iHa+IYD2snU6Kde9N5N+veaEcmJybSNlk5SDu8rmA==
+  dependencies:
+    invariant "^2.2.4"
+    just-throttle "^4.2.0"
+
+"@rpldy/simple-state@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/simple-state/-/simple-state-1.4.1.tgz#aa0324592bbde532d30f5d5e51355d1d9e16b26f"
+  integrity sha512-stP9ZZRyX4MIeiMTUHYCe66J3MOZRYTi4LYERnFAjRTH3ASNCG6Ej791PGHTXF+y8kRAqf5mWiZ6tvL63lk2Ig==
+  dependencies:
+    "@rpldy/shared" "^1.4.1"
+
+"@rpldy/upload-button@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/upload-button/-/upload-button-1.4.1.tgz#5902cfdebeafe1d37df743e1f9aa02ab9d717e55"
+  integrity sha512-zeSDLukN7lrFbmP2bhLSZ3N5d5Il3E+xH7NiaNzKBzND4RGiwUZcwHjDA00BmOa6cIbYlXHsJnQrQRjYOIerHQ==
+  dependencies:
+    "@rpldy/shared-ui" "^1.4.1"
+
+"@rpldy/uploader@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploader/-/uploader-1.4.1.tgz#c528bbf64fc46ad0869c0af0a2a60f51a0355a30"
+  integrity sha512-lr+GLvRbDYrdnO7J8YKj7Pa5HfhOLTuV7B3JLK7B+m8tTAo39LBPqZFuRSG8OUnErAvYaILd5iyT1X5xKqBJzA==
+  dependencies:
+    "@rpldy/abort" "^1.4.1"
+    "@rpldy/life-events" "^1.4.1"
+    "@rpldy/raw-uploader" "^1.4.1"
+    "@rpldy/sender" "^1.4.1"
+    "@rpldy/shared" "^1.4.1"
+    "@rpldy/simple-state" "^1.4.1"
+
+"@rpldy/uploady@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploady/-/uploady-1.4.1.tgz#a08e72a5ee726a2c3a7139d0cf6f1853192d4547"
+  integrity sha512-7ywe7hufh5UKz5zt1FboCLAvVa1l99WdGgDXfAWdIOfsPqMV+vb5OkwekXs8GquiOjVHhmH0Ofk39bPT0zbQdQ==
+  dependencies:
+    "@rpldy/life-events" "^1.4.1"
+    "@rpldy/shared" "^1.4.1"
+    "@rpldy/shared-ui" "^1.4.1"
+    "@rpldy/uploader" "^1.4.1"
+
 "@swc/helpers@0.4.14":
   version "0.4.14"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.14.tgz#1352ac6d95e3617ccb7c1498ff019654f1e12a74"
@@ -356,6 +439,11 @@ dlv@^1.1.3:
   resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
 
+drive-uploady@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/drive-uploady/-/drive-uploady-0.3.0.tgz#15c745db71f4e31218e555d2ee39311d11ff8853"
+  integrity sha512-Fml1YHBPJnFLhdZhsXyUcbRGjYva/Y/e8+QivuG235LoPoE+GotXh4aSl5EkSkqTl6FZjwjxWWKZlZyBKtYaVg==
+
 ecdsa-sig-formatter@1.0.11, ecdsa-sig-formatter@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz#ae0f0fa2d85045ef14a817daa3ce9acd0489e5bf"
@@ -565,6 +653,13 @@ inherits@2, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
+invariant@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+  integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
+  dependencies:
+    loose-envify "^1.0.0"
+
 is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
@@ -633,6 +728,11 @@ jsonwebtoken@^9.0.0:
     ms "^2.1.1"
     semver "^7.3.8"
 
+just-throttle@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/just-throttle/-/just-throttle-4.2.0.tgz#5a22da10a4bdb906d2583400eff2fe3fbd9f9662"
+  integrity sha512-/iAZv1953JcExpvsywaPKjSzfTiCLqeguUTE6+VmK15mOcwxBx7/FHrVvS4WEErMR03TRazH8kcBSHqMagYIYg==
+
 jwa@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.4.1.tgz#743c32985cb9e98655530d53641b66c8645b039a"
@@ -682,7 +782,7 @@ lodash@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-loose-envify@^1.1.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==

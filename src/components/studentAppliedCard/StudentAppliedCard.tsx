@@ -8,6 +8,8 @@ const StudentAppliedCard = (props: {
   cpi: Number,
   skills: String,
   role: String,
+  cv: string,
+  image: string,
   callfunction: () => void
 }) => {
   const [companyId, setCompanyId] = useState("");
@@ -41,7 +43,7 @@ const StudentAppliedCard = (props: {
   return (
     <div className={styles.card}>
       <div className={styles.card_border_top}></div>
-      <div className={styles.img}></div>
+      <div className={styles.img}><img src={props.image} alt={props.name} /></div>
       <span> {props.name}</span>
       <p className={styles.job}> {props.email}</p>
       <p className={styles.job}>
@@ -54,7 +56,10 @@ const StudentAppliedCard = (props: {
         <strong>SKILLS:</strong> {props.skills}
       </p>
       <p className={styles.job}>
-        <strong>ROLE APPLIED:</strong> {props.role}
+        <strong>ROLE APPLIED: </strong> {props.role}
+      </p>
+      <p className={styles.job}>
+        <strong>CV: </strong><a href={props.cv}>Click to view CV</a>
       </p>
       <button onClick={handleSubmit}> Recruit</button>
     </div>

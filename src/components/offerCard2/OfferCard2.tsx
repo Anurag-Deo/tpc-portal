@@ -11,6 +11,7 @@ const StudentAppliedCard = (props: {
   role: String;
   package: String;
   location: String;
+  logo: string;
   hide: Boolean;
 }) => {
   const [student, setStudent] = useState("");
@@ -83,7 +84,7 @@ const StudentAppliedCard = (props: {
       />
       <div className={styles.card}>
         <div className={styles.card_border_top}></div>
-        <div className={styles.img}></div>
+        <div className={styles.img}><img src={props.logo} alt={props.name} /></div>
         <span> {props.name}</span>
         <p className={styles.job}>
           <strong>ROLE:</strong> {props.role}

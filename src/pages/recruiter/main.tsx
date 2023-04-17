@@ -47,6 +47,7 @@ const main = () => {
     // setCompanyId(JSON.parse(localStorage.getItem("profile")).company_id)
     const compDetails = JSON.parse(localStorage.getItem("profile"));
     setCompanyId(compDetails.id);
+    fetchStudent()
   }, []);
 
   useEffect(() => {
@@ -76,6 +77,8 @@ const main = () => {
                   skills={item.roles}
                   role={item.role_applied}
                   callfunction = {fetchStudent}
+                  cv = {item.cv}
+                  image={item.image}
                 />
               );
             })}
