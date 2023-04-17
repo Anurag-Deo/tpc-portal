@@ -89,7 +89,6 @@ export default async function handler(
               company: req.body.company,
               ctc: req.body.ctc,
               role_applied: req.body.role_applied,
-              company_id: req.body.company_id,
               password: secPass,
               location: req.body.location,
               position: req.body.position,

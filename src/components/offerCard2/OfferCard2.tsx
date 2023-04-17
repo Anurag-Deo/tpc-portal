@@ -23,6 +23,7 @@ const StudentAppliedCard = (props: {
   }, []);
 
   const handleSubmit = async (e) => {
+    // console.log("Submit");
     e.preventDefault();
     const res = await fetch("/api/student/apply", {
       method: "POST",
@@ -30,6 +31,7 @@ const StudentAppliedCard = (props: {
         company_id: props.companyId,
         student_id: student,
         role_applied: props.role,
+        ctc_lakhs: props.package
       }),
       headers: {
         "Content-Type": "application/json",

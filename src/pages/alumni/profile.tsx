@@ -53,7 +53,7 @@ const profile = () => {
         position: position,
         password: password,
         company_id: "",
-        working_centre: "",
+        location: "",
         type: "alumni",
       }),
       headers: {
@@ -63,8 +63,28 @@ const profile = () => {
     const data = await res.json();
     if (data.error) {
       setError(data.error);
-      console.log(data.error);
+      // console.log(data.error);
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
+      toast.success("Updated successfull", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
       localStorage.setItem("profile", JSON.stringify(data.data));
@@ -73,6 +93,18 @@ const profile = () => {
 
   return (
     <>
+    <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <div className="flex flex-col lg:flex-row md:flex-row items-center">
         <section className="bg-gray-50 dark:bg-gray-900 lg:w-[50%] md:w-[50%] w-[80%] flex align-middle justify-center items-center">

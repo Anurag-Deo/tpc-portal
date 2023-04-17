@@ -9,8 +9,8 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const profile = ({folderLinks}) => {
-  // console.log(folderLinks)
+const profile = ({folderLinks,cvLinks}) => {
+  // console.log(cvLinks)
   const router = useRouter();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -24,7 +24,7 @@ const profile = ({folderLinks}) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
   const [cv, setCv] = useState("");
-  const [selectedcv, setSelectedcv] = useState<File>();
+  const [selectedcv, setSelectedcv] = useState("");
   const [dob, setDob] = useState("");
   const [mobile, setMobile] = useState("");
   const [yoj, setYoj] = useState("");
@@ -74,22 +74,34 @@ const profile = ({folderLinks}) => {
     setDepartment(data.department);
     setGender(data.gender);
     setCpi(data.gpa);
-    setDob(data.dob);
+    const formatedDob = new Date(data.dob);
+    setDob(formatedDob.toDateString());
     setMobile(data.contact_no);
-    setYoj(data.doj);
+    const formatedDoj = new Date(data.doj);
+    setYoj(formatedDoj.toDateString());
     setSkills(data.roles);
     setTenthMarks(data.tenthMarks);
     setTwelfthMarks(data.twelfthMarks);
     // Iterate the folderLinks array and take the link of that item which has roll included in the name of the file
-    let link = ""
+    let imglink = ""
     for(let i=0; i<folderLinks.length; i++){
       if(folderLinks[i].name.includes(data.rollno)){
-        link = folderLinks[i].link
+        imglink = folderLinks[i].link
         break
       }
     }
-    console.log(link)
-    setSelectedImage(link);
+    console.log(imglink)
+    setSelectedImage(imglink);
+    
+    let cvlink = ""
+    for(let i=0; i<cvLinks.length; i++){
+      if(cvLinks[i].name.includes(data.rollno)){
+        cvlink = cvLinks[i].link
+        break
+      }
+    }
+    console.log(cvlink)
+    setSelectedcv(cvlink);
     
   }, []);
 
@@ -101,6 +113,7 @@ const profile = ({folderLinks}) => {
 
   const handleSubmit = async (e : any) => {
     e.preventDefault();
+    console.log(new Date(dob).toISOString())
     const res = await fetch("/api/editprofile", {
       method: "POST",
       body: JSON.stringify({
@@ -113,8 +126,8 @@ const profile = ({folderLinks}) => {
         roles: skills,
         gender: gender,
         password: password,
-        dob: dob,
-        doj: yoj,
+        dob: new Date(dob).toISOString().slice(0, 19).replace('T', ' '),
+        doj: new Date(yoj).toISOString().slice(0, 19).replace('T', ' '),
         contact_no: mobile,
         tenth_marks: tenthMarks,
         twelfth_marks: twelfthMarks,
@@ -133,8 +146,9 @@ const profile = ({folderLinks}) => {
     } else {
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
+      console.log(JSON.stringify(data.data))
       localStorage.setItem("profile", JSON.stringify(data.data));
-      router.push("/student/main");
+      // router.push("/student/main");
     }
   };
 
@@ -342,7 +356,7 @@ const profile = ({folderLinks}) => {
                         DOB
                       </label>
                       <input
-                        type="date"
+                        type="text"
                         name="DOB"
                         id="DOB"
                         // placeholder="Male/Female/Other"
@@ -360,7 +374,7 @@ const profile = ({folderLinks}) => {
                         Year of Joining
                       </label>
                       <input
-                        type="date"
+                        type="text"
                         name="yoj"
                         id="yoj"
                         // placeholder="Computer Science and Engineering"
@@ -442,7 +456,7 @@ const profile = ({folderLinks}) => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={twelfthMarks}
-                        onChange={(e) => setTenthMarks(e.target.value)}
+                        onChange={(e) => setTwelfthMarks(e.target.value)}
                       />
                     </div>
                   </div>
@@ -521,6 +535,7 @@ export async function getServerSideProps(context) {
 
   // folderLink will contain the object of all the required information
   let folderLinks = []
+  let cvLinks = []
   try {
       // Getting a list of all the folders inside the folderId of gallery folder and then sorting them in descending order of createdTime.
       // The field parameter will only extract those fields from the response.
@@ -531,8 +546,16 @@ export async function getServerSideProps(context) {
           orderBy: 'createdTime desc',
       })
 
+      const cv = await drive.files.list({
+        q: `'${"1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV"}' in parents and trashed = false and mimeType = 'application/pdf'`,
+          fields: 'files(id, name, description, createdTime)',
+          folderId: '1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV',
+          orderBy: 'createdTime desc',
+      })
+
       // Creating an array out of the following object
       const folderdata = Array.from(folder.data.files)
+      const cvData = Array.from(cv.data.files)
 
       // Poping because the last entry is gallry folder itself
       // folderdata.pop()
@@ -546,11 +569,19 @@ export async function getServerSideProps(context) {
             }
           })
       )
+      cvLinks = await Promise.all(
+          cvData.map(async (cv) => {
+            return {
+              name: cv.name,
+              link: `https://drive.google.com/uc?export=view&id=${cv.id}`,
+            }
+          })
+      )
   } catch (error) {
       throw error
   }
-  console.log(folderLinks)
+  console.log(cvLinks)
   return {
-      props: { folderLinks }, // will be passed to the page component as props
+      props: { folderLinks,cvLinks }, // will be passed to the page component as props
   }
 }

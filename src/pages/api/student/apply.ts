@@ -27,7 +27,7 @@ export default async function handler(
       "select * from offers natural join (select * from students_applied, company where id=company_id) as a where role_applied = role_offered and student_id = ? order by ctc_lakhs desc limit 1",
       [req.body.student_id],
       async function (error: Object, results: any, _fields: any) {
-        if (results[0].ctc_lakhs > req.body.ctc_lakhs) {
+          if (results.length>0 && results[0].ctc_lakhs > req.body.ctc_lakhs) {
           res.status(500).json({ error: "Has higher CTC" });
         } else {
           connection.query(
@@ -35,6 +35,7 @@ export default async function handler(
             [req.body.student_id],
             async function (error: Object, results: any, _fields: any) {
               if (
+                results.length>0 &&
                 results[0].company_id === req.body.company_id &&
                 results[0].role_applied === req.body.role_applied
               ) {

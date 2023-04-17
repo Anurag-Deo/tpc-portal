@@ -31,6 +31,7 @@ const signin = () => {
     // console.log(data);
     if (data.error) {
       setError(data.error);
+      console.log(data.error);
     } else {
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);

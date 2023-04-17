@@ -95,7 +95,7 @@ const stats = () => {
           <h2 className="text-3xl font-semibold leading-tight my-5">
             Get Data about the Alumns
           </h2>
-          {company && <Table data={alumni} columns={alumniColumns} />}
+          {alumni && <Table data={alumni} columns={alumniColumns} />}
         </div>
       </div>
     </>

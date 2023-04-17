@@ -248,6 +248,7 @@ const ColumnFilter = ({ column: { filterValue, setFilter } }) => {
 
 function Table({ columns, data }) {
 
+
   const [pageSize, setPageSize] = useState(5);
   const {
     getTableProps,
@@ -265,7 +266,7 @@ function Table({ columns, data }) {
     previousPage,
     setPageSize: setPageSizeState,
   } = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 5 } },
+    { columns, data, initialState: { pageIndex: 0, pageSize: 5 } }, 
     useFilters,
     useSortBy,
     usePagination
