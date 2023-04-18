@@ -4,12 +4,12 @@ import Table from "@/components/table";
 import { useRouter } from "next/router";
 
 const ColumnFilter = ({ column: { filterValue, setFilter } }) => {
-    const router = useRouter();
-    useEffect(() => {
-        if (!localStorage.getItem("token")) {
-          router.push("/admin/signin");
-        } 
-        }, []);
+  const router = useRouter();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/admin/signin");
+    }
+  }, []);
   return (
     <div className="bg-transparent dark:bg-gray-900">
       <label htmlFor="table-search" className="sr-only">
@@ -72,7 +72,7 @@ const studentColumns = [
 const stats = () => {
   const [company, setCompany] = useState();
   const [alumni, setAlumni] = useState();
-  const [student, setStudent] = useState()
+  const [student, setStudent] = useState();
   const [currentData, setCurrentData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postperPage, setPostperPage] = useState(5);
@@ -81,21 +81,16 @@ const stats = () => {
     const response = await fetch("/api/alljobs");
     const data = await response.json();
     setCompany(data);
-    // console.log(data);
   };
   const fetchAlumni = async () => {
     const response = await fetch("/api/alumni/allalumns");
     const data = await response.json();
     setAlumni(data);
-    // setTableData(data);
-    // console.log(data);
   };
   const fetchStudent = async () => {
     const response = await fetch("/api/student/allstudents");
     const data = await response.json();
     setStudent(data);
-    // setTableData(data);
-    console.log(data);
   };
   useEffect(() => {
     fetchData();

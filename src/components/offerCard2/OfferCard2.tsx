@@ -24,7 +24,6 @@ const StudentAppliedCard = (props: {
   }, []);
 
   const handleSubmit = async (e) => {
-    // console.log("Submit");
     e.preventDefault();
     const res = await fetch("/api/student/apply", {
       method: "POST",
@@ -32,7 +31,7 @@ const StudentAppliedCard = (props: {
         company_id: props.companyId,
         student_id: student,
         role_applied: props.role,
-        ctc_lakhs: props.package
+        ctc_lakhs: props.package,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +52,6 @@ const StudentAppliedCard = (props: {
         theme: "light",
       });
     } else {
-      // router.push("/stud/main");
       console.log("Success");
       toast.success("Successfully applied", {
         position: "top-right",
@@ -84,7 +82,9 @@ const StudentAppliedCard = (props: {
       />
       <div className={styles.card}>
         <div className={styles.card_border_top}></div>
-        <div className={styles.img}><img src={props.logo} alt={props.name} /></div>
+        <div className={styles.img}>
+          <img src={props.logo} alt={props.name} />
+        </div>
         <span> {props.name}</span>
         <p className={styles.job}>
           <strong>ROLE:</strong> {props.role}

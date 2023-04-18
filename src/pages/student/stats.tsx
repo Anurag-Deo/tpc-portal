@@ -71,7 +71,6 @@ const stats = () => {
     const response = await fetch("/api/alumni/allalumns");
     const data = await response.json();
     setAlumni(data);
-    // setTableData(data);
     console.log(data);
   };
   useEffect(() => {

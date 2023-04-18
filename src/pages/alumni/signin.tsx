@@ -11,7 +11,10 @@ const signin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("type") === "alumni") {
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("type") === "alumni"
+    ) {
       router.push("/alumni/profile");
     }
   }, []);
@@ -28,7 +31,6 @@ const signin = () => {
       },
     });
     const data = await res.json();
-    // console.log(data);
     if (data.error) {
       setError(data.error);
       console.log(data.error);

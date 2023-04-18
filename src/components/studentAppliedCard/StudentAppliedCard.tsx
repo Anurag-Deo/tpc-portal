@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./StudentAppliedCard.module.css";
 const StudentAppliedCard = (props: {
-  studentRoll: String,
-  name: String,
-  email: String,
-  department: String,
-  cpi: Number,
-  skills: String,
-  role: String,
-  cv: string,
-  image: string,
-  callfunction: () => void
+  studentRoll: String;
+  name: String;
+  email: String;
+  department: String;
+  cpi: Number;
+  skills: String;
+  role: String;
+  cv: string;
+  image: string;
+  callfunction: () => void;
 }) => {
   const [companyId, setCompanyId] = useState("");
   useEffect(() => {
@@ -37,13 +37,15 @@ const StudentAppliedCard = (props: {
     } else {
       console.log("Success");
     }
-    props.callfunction()
+    props.callfunction();
   };
 
   return (
     <div className={styles.card}>
       <div className={styles.card_border_top}></div>
-      <div className={styles.img}><img src={props.image} alt={props.name} /></div>
+      <div className={styles.img}>
+        <img src={props.image} alt={props.name} />
+      </div>
       <span> {props.name}</span>
       <p className={styles.job}> {props.email}</p>
       <p className={styles.job}>
@@ -59,7 +61,8 @@ const StudentAppliedCard = (props: {
         <strong>ROLE APPLIED: </strong> {props.role}
       </p>
       <p className={styles.job}>
-        <strong>CV: </strong><a href={props.cv}>Click to view CV</a>
+        <strong>CV: </strong>
+        <a href={props.cv}>Click to view CV</a>
       </p>
       <button onClick={handleSubmit}> Recruit</button>
     </div>

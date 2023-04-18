@@ -21,7 +21,6 @@ const main = () => {
     });
     const data = await res.json();
     if (data.error) {
-      // console.log(data.error);
       toast.error(data.error, {
         position: "top-right",
         autoClose: 3000,
@@ -33,9 +32,6 @@ const main = () => {
         theme: "light",
       });
     } else {
-      // router.push("/stud/main");
-      // console.log(data.data);
-      console.log(data);
       setData(data);
     }
   };
@@ -44,10 +40,9 @@ const main = () => {
     if (!localStorage.getItem("token")) {
       router.push("/company/signin");
     }
-    // setCompanyId(JSON.parse(localStorage.getItem("profile")).company_id)
     const compDetails = JSON.parse(localStorage.getItem("profile"));
     setCompanyId(compDetails.id);
-    fetchStudent()
+    fetchStudent();
   }, []);
 
   useEffect(() => {
@@ -76,8 +71,8 @@ const main = () => {
                   email={item.email}
                   skills={item.roles}
                   role={item.role_applied}
-                  callfunction = {fetchStudent}
-                  cv = {item.cv}
+                  callfunction={fetchStudent}
+                  cv={item.cv}
                   image={item.image}
                 />
               );

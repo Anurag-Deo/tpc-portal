@@ -70,8 +70,6 @@ const AlumniNavbar = () => {
                 Logout
               </span>
             </li>
-
-           
           </ul>
         </div>
       </div>

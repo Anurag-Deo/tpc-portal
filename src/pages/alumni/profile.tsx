@@ -10,21 +10,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const profile = () => {
-  // console.log(folderLinks)
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ctc, setCtc] = useState("");
   const [roll, setRoll] = useState("");
-  const [company, setCompany] = useState('')
-  const [role, setRole] = useState('')
-  const [location, setLocation] = useState('');
-  const [position, setPosition] = useState('')
+  const [company, setCompany] = useState("");
+  const [role, setRole] = useState("");
+  const [location, setLocation] = useState("");
+  const [position, setPosition] = useState("");
   const [error, setError] = useState("");
   const [appliedOffers, setAppliedOffers] = useState();
-  // let data = {};
-  
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("profile"));
     console.log(data);
@@ -34,12 +32,10 @@ const profile = () => {
     setRole(data.role_applied);
     setCtc(data.ctc);
     // Iterate the folderLinks array and take the link of that item which has roll included in the name of the file
-    
   }, []);
 
-
   const handleSubmit = async (e: any) => {
-    console.log('roll', roll)
+    console.log("roll", roll);
     e.preventDefault();
     const res = await fetch("/api/editprofile", {
       method: "POST",
@@ -63,7 +59,6 @@ const profile = () => {
     const data = await res.json();
     if (data.error) {
       setError(data.error);
-      // console.log(data.error);
       toast.error(data.error, {
         position: "top-right",
         autoClose: 3000,
@@ -93,7 +88,7 @@ const profile = () => {
 
   return (
     <>
-    <ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -122,7 +117,7 @@ const profile = () => {
             >
               Your Profile
             </a>
-            
+
             <div className="w-[100%] bg-white rounded-lg shadow dark:border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -150,7 +145,7 @@ const profile = () => {
                         }}
                       />
                     </div>
-                    
+
                     <div className="w-[24%]">
                       <label
                         htmlFor="roll"
@@ -209,7 +204,6 @@ const profile = () => {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
-                    
                     <div className="w-[60%]">
                       <label
                         htmlFor="company"
@@ -265,7 +259,7 @@ const profile = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
                     <div className="w-[50%]">
                       <label
@@ -278,7 +272,6 @@ const profile = () => {
                         type="text"
                         name="location"
                         id="location"
-                        // placeholder="Male/Female/Other"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={location}
@@ -296,16 +289,14 @@ const profile = () => {
                         type="text"
                         name="position"
                         id="position"
-                        // placeholder="Male/Female/Other"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={position}
                         onChange={(e) => setPosition(e.target.value)}
                       />
                     </div>
-                    
                   </div>
-                  
+
                   <button
                     type="submit"
                     onClick={handleSubmit}

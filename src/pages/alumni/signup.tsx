@@ -8,10 +8,8 @@ import { useRouter } from "next/router";
 const signup = () => {
   const router = useRouter();
   const [name, setName] = useState("");
-  // const [company, setCompany] = useState("");
   const [roll, setRoll] = useState("");
   const [email, setEmail] = useState("");
-  // const [ctc, setCtc] = useState(0);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -55,7 +53,6 @@ const signup = () => {
       },
     });
     const data = await res.json();
-    // console.log(data);
     if (data.error) {
       setError(data.error);
       console.log(data.error);

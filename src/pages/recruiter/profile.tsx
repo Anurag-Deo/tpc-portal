@@ -9,19 +9,16 @@ import "react-toastify/dist/ReactToastify.css";
 import DriveUploady from "drive-uploady";
 import UploadButton from "@rpldy/upload-button";
 
-
-const profile = ({folderLinks}) => {
-  // console.log(folderLinks)
+const profile = ({ folderLinks }) => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [hrEmail, setHrEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [id, setId] = useState("");
-  const [logo, setLogo] = useState("")
+  const [logo, setLogo] = useState("");
   const [students, setStudents] = useState();
   const [error, setError] = useState("");
   const [createdOffers, setCreatedOffers] = useState();
-  // let data = {};
   const fetchCreated = async () => {
     const res = await fetch("/api/company/viewoffers", {
       method: "POST",
@@ -34,7 +31,6 @@ const profile = ({folderLinks}) => {
     });
     const data = await res.json();
     if (data.error) {
-      // console.log(data.error);
       toast.error(data.error, {
         position: "top-right",
         autoClose: 3000,
@@ -46,26 +42,21 @@ const profile = ({folderLinks}) => {
         theme: "light",
       });
     } else {
-      // router.push("/stud/main");
-      // console.log(data.data);
-      console.log(data);
       setCreatedOffers(data);
     }
   };
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("profile"));
-    // console.log(data);
     setId(data.id);
     setHrEmail(data.Hr_contacts);
     setCompanyName(data.name);
-    let imglink = ""
-    for(let i=0; i<folderLinks.length; i++){
-      if(folderLinks[i].name.includes(data.name)){
-        imglink = folderLinks[i].link
-        break
+    let imglink = "";
+    for (let i = 0; i < folderLinks.length; i++) {
+      if (folderLinks[i].name.includes(data.name)) {
+        imglink = folderLinks[i].link;
+        break;
       }
     }
-    // console.log(imglink)
     setLogo(imglink);
   }, []);
   useEffect(() => {
@@ -93,7 +84,6 @@ const profile = ({folderLinks}) => {
     console.log(data);
     if (data.error) {
       setError(data.error);
-      // console.log(error);
       // TODO : Add an error Toast
     } else {
       localStorage.setItem("token", data.token);
@@ -119,11 +109,6 @@ const profile = ({folderLinks}) => {
               href="#"
               className="flex items-start mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
             >
-              {/* <img
-                className="w-10 h-10 mr-2"
-                src="https://www.iitp.ac.in/placement/images/iitp2.png"
-                alt="logo"
-              /> */}
               Your Profile
             </a>
 
@@ -197,39 +182,19 @@ const profile = ({folderLinks}) => {
                   </div>
                   <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
                     <div className="w-[100%]">
-                      <span>Upload the LOGO here in the format <strong>{companyName}.pdf</strong></span>
-                      <a 
-                      target="_blank"
-                      className="w-[75%] mx-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12"
-                      href="https://forms.gle/AZSk1nTNnUi3kvLBA">
+                      <span>
+                        Upload the LOGO here in the format{" "}
+                        <strong>{companyName}.pdf</strong>
+                      </span>
+                      <a
+                        target="_blank"
+                        className="w-[75%] mx-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12"
+                        href="https://forms.gle/AZSk1nTNnUi3kvLBA"
+                      >
                         Upload Logo
                       </a>
                     </div>
                   </div>
-                  {/* <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
-                    <div className="w-[60%]">
-                      <DriveUploady
-                        
-                        clientId="791432843458-rl3lff5j32sej1e3uu5jcr46lgdtjgcc.apps.googleusercontent.com"
-                        scope="https://www.googleapis.com/auth/drive.file"
-                        params={{ parents: ["1AimfERICS06HkEPBZHwSMfa5gBWQaunX"] }}
-                      >
-                        <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          Upload your Logo
-                        </span>
-                        <UploadButton>Upload to Drive</UploadButton>
-                      </DriveUploady>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-purple-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-purple-600 dark:ring-offset-gray-800" required={true} />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-purple-600 hover:underline dark:text-purple-500" href="#">Terms and Conditions</a></label>
-                        </div>
-                    </div> */}
                   <button
                     type="submit"
                     onClick={handleSubmit}
@@ -323,7 +288,6 @@ export async function getServerSideProps(context) {
           name: folder.name,
           link: `https://drive.google.com/uc?export=view&id=${folder.id}`,
         };
-        
       })
     );
   } catch (error) {

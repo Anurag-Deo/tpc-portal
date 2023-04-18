@@ -9,8 +9,7 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const profile = ({folderLinks,cvLinks}) => {
-  // console.log(cvLinks)
+const profile = ({ folderLinks, cvLinks }) => {
   const router = useRouter();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -28,12 +27,11 @@ const profile = ({folderLinks,cvLinks}) => {
   const [dob, setDob] = useState("");
   const [mobile, setMobile] = useState("");
   const [yoj, setYoj] = useState("");
-  const [skills, setSkills] = useState("")
-  const [tenthMarks, setTenthMarks] = useState('')
-  const [twelfthMarks, setTwelfthMarks] = useState('')
+  const [skills, setSkills] = useState("");
+  const [tenthMarks, setTenthMarks] = useState("");
+  const [twelfthMarks, setTwelfthMarks] = useState("");
   const [error, setError] = useState("");
-  const [appliedOffers, setAppliedOffers] = useState()
-  // let data = {};
+  const [appliedOffers, setAppliedOffers] = useState();
   const fetchApplied = async () => {
     const res = await fetch("/api/student/viewapplied", {
       method: "POST",
@@ -46,7 +44,6 @@ const profile = ({folderLinks,cvLinks}) => {
     });
     const data = await res.json();
     if (data.error) {
-      // console.log(data.error);
       toast.error(data.error, {
         position: "top-right",
         autoClose: 3000,
@@ -58,9 +55,6 @@ const profile = ({folderLinks,cvLinks}) => {
         theme: "light",
       });
     } else {
-      // router.push("/stud/main");
-      // console.log(data.data);
-      console.log(data);
       setAppliedOffers(data);
     }
   };
@@ -83,37 +77,36 @@ const profile = ({folderLinks,cvLinks}) => {
     setTenthMarks(data.tenth_marks);
     setTwelfthMarks(data.twelvth_marks);
     // Iterate the folderLinks array and take the link of that item which has roll included in the name of the file
-    let imglink = ""
-    for(let i=0; i<folderLinks.length; i++){
-      if(folderLinks[i].name.includes(data.rollno)){
-        imglink = folderLinks[i].link
-        break
+    let imglink = "";
+    for (let i = 0; i < folderLinks.length; i++) {
+      if (folderLinks[i].name.includes(data.rollno)) {
+        imglink = folderLinks[i].link;
+        break;
       }
     }
-    console.log(imglink)
+    console.log(imglink);
     setSelectedImage(imglink);
-    
-    let cvlink = ""
-    for(let i=0; i<cvLinks.length; i++){
-      if(cvLinks[i].name.includes(data.rollno)){
-        cvlink = cvLinks[i].link
-        break
+
+    let cvlink = "";
+    for (let i = 0; i < cvLinks.length; i++) {
+      if (cvLinks[i].name.includes(data.rollno)) {
+        cvlink = cvLinks[i].link;
+        break;
       }
     }
-    console.log(cvlink)
+    console.log(cvlink);
     setSelectedcv(cvlink);
-    fetchApplied()
+    fetchApplied();
   }, []);
 
   useEffect(() => {
-    console.log(roll)
+    console.log(roll);
     fetchApplied();
-  }, [roll])
-  
+  }, [roll]);
 
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(new Date(dob).toISOString())
+    console.log(new Date(dob).toISOString());
     const res = await fetch("/api/editprofile", {
       method: "POST",
       body: JSON.stringify({
@@ -126,14 +119,14 @@ const profile = ({folderLinks,cvLinks}) => {
         roles: skills,
         gender: gender,
         password: password,
-        dob: new Date(dob).toISOString().slice(0, 19).replace('T', ' '),
-        doj: new Date(yoj).toISOString().slice(0, 19).replace('T', ' '),
+        dob: new Date(dob).toISOString().slice(0, 19).replace("T", " "),
+        doj: new Date(yoj).toISOString().slice(0, 19).replace("T", " "),
         contact_no: mobile,
         tenth_marks: tenthMarks,
         twelvth_marks: twelfthMarks,
         type: "student",
         image: selectedImage,
-        cv: selectedcv
+        cv: selectedcv,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -142,11 +135,11 @@ const profile = ({folderLinks,cvLinks}) => {
     const data = await res.json();
     if (data.error) {
       setError(data.error);
-      console.log(data.error)
+      console.log(data.error);
     } else {
       localStorage.setItem("token", data.token);
       localStorage.setItem("type", data.data.type);
-      console.log(JSON.stringify(data.data))
+      console.log(JSON.stringify(data.data));
       localStorage.setItem("profile", JSON.stringify(data.data));
       router.push("/student/main");
     }
@@ -172,7 +165,6 @@ const profile = ({folderLinks,cvLinks}) => {
               Your Profile
             </a>
             <label>
-              
               {selectedImage ? (
                 <>
                   <img
@@ -377,7 +369,6 @@ const profile = ({folderLinks,cvLinks}) => {
                         type="text"
                         name="yoj"
                         id="yoj"
-                        // placeholder="Computer Science and Engineering"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={yoj}
@@ -434,7 +425,6 @@ const profile = ({folderLinks,cvLinks}) => {
                         type="text"
                         name="tenthMarks"
                         id="tenthMarks"
-                        // placeholder="Male/Female/Other"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={tenthMarks}
@@ -452,7 +442,6 @@ const profile = ({folderLinks,cvLinks}) => {
                         type="text"
                         name="12thMarks"
                         id="12tMarks"
-                        // placeholder="Male/Female/Other"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required={true}
                         value={twelfthMarks}
@@ -462,11 +451,15 @@ const profile = ({folderLinks,cvLinks}) => {
                   </div>
                   <div className="flex flex-col justify-between space-y-2 md:space-y-0 md:flex-row md:space-x-4">
                     <div className="w-[100%]">
-                      <span>Upload the CV here in the format <strong>Rollno.pdf</strong></span>
-                      <a 
-                      target="_blank"
-                      className="w-[75%] mx-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12"
-                      href="https://forms.gle/GmkaCKyGgYnxLp6H9">
+                      <span>
+                        Upload the CV here in the format{" "}
+                        <strong>Rollno.pdf</strong>
+                      </span>
+                      <a
+                        target="_blank"
+                        className="w-[75%] mx-5 text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 h-12"
+                        href="https://forms.gle/GmkaCKyGgYnxLp6H9"
+                      >
                         Upload CV
                       </a>
                     </div>
@@ -486,19 +479,21 @@ const profile = ({folderLinks,cvLinks}) => {
       </div>
       <h3 className="text-4xl my-16 font-semibold text-center">Applied Jobs</h3>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-20 flex-wrap">
-        {appliedOffers? appliedOffers.map((offer) => (
-        <OfferCard
-          companyId={offer.company_id}
-          name={offer.name}
-          location={offer.location}
-          role={offer.role_offered}
-          branches={offer.branches_allowed}
-          package={offer.ctc_lakhs}
-          cpi={offer.eligibility}
-          logo={offer.logo}
-          hide={true}
-        />  
-        )): null}
+        {appliedOffers
+          ? appliedOffers.map((offer) => (
+              <OfferCard
+                companyId={offer.company_id}
+                name={offer.name}
+                location={offer.location}
+                role={offer.role_offered}
+                branches={offer.branches_allowed}
+                package={offer.ctc_lakhs}
+                cpi={offer.eligibility}
+                logo={offer.logo}
+                hide={true}
+              />
+            ))
+          : null}
       </div>
     </>
   );
@@ -506,83 +501,86 @@ const profile = ({folderLinks,cvLinks}) => {
 
 export default profile;
 
-
 export async function getServerSideProps(context) {
-  const process = require('process')
-  const { google } = require('googleapis')
-  const CLIENT_ID = "791432843458-rl3lff5j32sej1e3uu5jcr46lgdtjgcc.apps.googleusercontent.com"
-  const CLIENT_SECRET = "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"
-  const REDIRECT_URI = "https://developers.google.com/oauthplayground"
-  const REFRESH_TOKEN = "1//04x49K7lH26C1CgYIARAAGAQSNwF-L9Ir_Uv-pctpKIJ2pn_jjINjtTg8334cljS62q_S6eIG0DG10EwZam2qmbafCJhBef_SAHs"
+  const process = require("process");
+  const { google } = require("googleapis");
+  const CLIENT_ID =
+    "791432843458-rl3lff5j32sej1e3uu5jcr46lgdtjgcc.apps.googleusercontent.com";
+  const CLIENT_SECRET = "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";
+  const REDIRECT_URI = "https://developers.google.com/oauthplayground";
+  const REFRESH_TOKEN =
+    "1//04x49K7lH26C1CgYIARAAGAQSNwF-L9Ir_Uv-pctpKIJ2pn_jjINjtTg8334cljS62q_S6eIG0DG10EwZam2qmbafCJhBef_SAHs";
 
   // Authenticate using google auth client
   const oauth2Client = new google.auth.OAuth2(
-      CLIENT_ID,
-      CLIENT_SECRET,
-      REDIRECT_URI
-  )
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+  );
 
   // Setting the refresh token
-  oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+  oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
   // Setting the scope to drive
-  const scopes = ['https://www.googleapis.com/auth/drive']
+  const scopes = ["https://www.googleapis.com/auth/drive"];
 
   // Creating an google drive object
   const drive = google.drive({
-      version: 'v3',
-      auth: oauth2Client,
-  })
+    version: "v3",
+    auth: oauth2Client,
+  });
 
   // folderLink will contain the object of all the required information
-  let folderLinks = []
-  let cvLinks = []
+  let folderLinks = [];
+  let cvLinks = [];
   try {
-      // Getting a list of all the folders inside the folderId of gallery folder and then sorting them in descending order of createdTime.
-      // The field parameter will only extract those fields from the response.
-      const folder = await drive.files.list({
-          q: `'${"1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf"}' in parents and trashed = false and (mimeType='image/jpeg' or mimeType='image/png')`,
-          fields: 'files(id, name, description, createdTime)',
-          folderId: '1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf',
-          orderBy: 'createdTime desc',
+    // Getting a list of all the folders inside the folderId of gallery folder and then sorting them in descending order of createdTime.
+    // The field parameter will only extract those fields from the response.
+    const folder = await drive.files.list({
+      q: `'${"1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf"}' in parents and trashed = false and (mimeType='image/jpeg' or mimeType='image/png')`,
+      fields: "files(id, name, description, createdTime)",
+      folderId:
+        "1gD2X4g9K80wGBsyDAmxeXPjW2nvixQVudz2bd55TE5XchONPK5VMwYqgFR2IdX95QVs6ayIf",
+      orderBy: "createdTime desc",
+    });
+
+    const cv = await drive.files.list({
+      q: `'${"1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV"}' in parents and trashed = false and mimeType = 'application/pdf'`,
+      fields: "files(id, name, description, createdTime)",
+      folderId:
+        "1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV",
+      orderBy: "createdTime desc",
+    });
+
+    // Creating an array out of the following object
+    const folderdata = Array.from(folder.data.files);
+    const cvData = Array.from(cv.data.files);
+
+    // Poping because the last entry is gallry folder itself
+    // folderdata.pop()
+
+    // Iterating over the folderdata array and getting the images inside each folder
+    folderLinks = await Promise.all(
+      folderdata.map(async (folder) => {
+        return {
+          name: folder.name,
+          link: `https://drive.google.com/uc?export=view&id=${folder.id}`,
+        };
       })
-
-      const cv = await drive.files.list({
-        q: `'${"1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV"}' in parents and trashed = false and mimeType = 'application/pdf'`,
-          fields: 'files(id, name, description, createdTime)',
-          folderId: '1fbD8Ldt25VEJ4TELnMtQjiOXDrwFxb0LS0ub-ikWjhzyU4wGOG0ph_eCd4DVLwcccjnk0XjV',
-          orderBy: 'createdTime desc',
+    );
+    cvLinks = await Promise.all(
+      cvData.map(async (cv) => {
+        return {
+          name: cv.name,
+          link: `https://drive.google.com/uc?export=view&id=${cv.id}`,
+        };
       })
-
-      // Creating an array out of the following object
-      const folderdata = Array.from(folder.data.files)
-      const cvData = Array.from(cv.data.files)
-
-      // Poping because the last entry is gallry folder itself
-      // folderdata.pop()
-
-      // Iterating over the folderdata array and getting the images inside each folder
-      folderLinks = await Promise.all(
-          folderdata.map(async (folder) => {
-            return {
-              name: folder.name,
-              link: `https://drive.google.com/uc?export=view&id=${folder.id}`,
-            }
-          })
-      )
-      cvLinks = await Promise.all(
-          cvData.map(async (cv) => {
-            return {
-              name: cv.name,
-              link: `https://drive.google.com/uc?export=view&id=${cv.id}`,
-            }
-          })
-      )
+    );
   } catch (error) {
-      throw error
+    throw error;
   }
-  console.log(cvLinks)
+  console.log(cvLinks);
   return {
-      props: { folderLinks,cvLinks }, // will be passed to the page component as props
-  }
+    props: { folderLinks, cvLinks }, // will be passed to the page component as props
+  };
 }

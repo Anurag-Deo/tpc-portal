@@ -13,15 +13,12 @@ const OfferCard = ({
   cpi,
   hide = false,
 }) => {
-  // const [company, setCompany] = useState('')
   const [student, setStudent] = useState("");
-  // const [role, setRole] = useState('')
   const [error, setError] = useState("");
   let data = {};
   useEffect(() => {
     data = JSON.parse(localStorage.getItem("profile"));
     setStudent(data.rollno);
-    
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +37,6 @@ const OfferCard = ({
     const data = await res.json();
     if (data.error) {
       setError(data.error);
-      // console.log(data.error);
       toast.error(data.error, {
         position: "top-right",
         autoClose: 3000,
@@ -52,7 +48,6 @@ const OfferCard = ({
         theme: "light",
       });
     } else {
-      // router.push("/stud/main");
       console.log("Success");
       toast.success("Successfully applied", {
         position: "top-right",

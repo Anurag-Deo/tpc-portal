@@ -24,7 +24,14 @@ const createoffer = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if(company === "" || role === "" || ctc === "" || cpi === "" || location === "" || branches === ""){
+    if (
+      company === "" ||
+      role === "" ||
+      ctc === "" ||
+      cpi === "" ||
+      location === "" ||
+      branches === ""
+    ) {
       setError("Please fill all the fields");
       toast.error("Please fill all the fields", {
         position: "top-right",
@@ -81,19 +88,19 @@ const createoffer = () => {
         theme: "light",
       });
     } else {
-      toast.success('Job Offer Created', {
-        position: 'top-right',
+      toast.success("Job Offer Created", {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
-    })
-    setTimeout(() => {
-      router.push("/recruiter/main");
-    }, 2000);
+        theme: "light",
+      });
+      setTimeout(() => {
+        router.push("/recruiter/main");
+      }, 2000);
     }
   };
   return (
@@ -230,14 +237,6 @@ const createoffer = () => {
                       onChange={(e) => setBranches(e.target.value)}
                     />
                   </div>
-                  {/* <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-purple-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-purple-600 dark:ring-offset-gray-800" required={true} />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-purple-600 hover:underline dark:text-purple-500" href="#">Terms and Conditions</a></label>
-                        </div>
-                    </div> */}
                   <button
                     type="submit"
                     onClick={handleSubmit}
